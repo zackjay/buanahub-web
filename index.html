@@ -1,0 +1,675 @@
+<title>BuanaHub: ebook dan templat digital</title>
+<meta name="description" content="BuanaHub menjual ebook, templat dan bahan cetak digital asal dalam Bahasa Melayu dan English. Kedai akan dibuka tidak lama lagi.">
+<link rel="canonical" href="https://buanahub.com/">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: a clean bookstore. Header, hero with real covers, trust strip, cover grid.
+   Each product opens at #slug: cover + sample-page gallery, buy box with Malaysia (RM, e-wallet) / international (USD) checkout. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #141a26;
+  --muted: #5b6475;
+  --line: #e3e6ec;
+  --brand: #22397f;
+  --brand-ink: #ffffff;
+  --brand-soft: #eaeef8;
+  --save: #0f7a55;
+  --save-soft: #e3f4ec;
+  --chip: #f0f2f6;
+  --shadow: 0 1px 2px rgba(20, 26, 38, .06), 0 6px 20px rgba(20, 26, 38, .07);
+  --cover-shadow: 0 2px 4px rgba(20, 26, 38, .12), 0 14px 32px rgba(20, 26, 38, .16);
+  --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f131c; --surface: #171c27; --ink: #eef1f6; --muted: #a3abbb; --line: #283041;
+    --brand: #8ea6f2; --brand-ink: #0f131c; --brand-soft: #1e2740; --save: #4fd1a0; --save-soft: #133429;
+    --chip: #222a38; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3);
+    --cover-shadow: 0 2px 4px rgba(0,0,0,.4), 0 14px 32px rgba(0,0,0,.45);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f131c; --surface: #171c27; --ink: #eef1f6; --muted: #a3abbb; --line: #283041;
+  --brand: #8ea6f2; --brand-ink: #0f131c; --brand-soft: #1e2740; --save: #4fd1a0; --save-soft: #133429;
+  --chip: #222a38; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3);
+  --cover-shadow: 0 2px 4px rgba(0,0,0,.4), 0 14px 32px rgba(0,0,0,.45);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 20; background: var(--surface); }
+a { color: inherit; }
+h1, h2, h3 { text-wrap: balance; margin: 0; letter-spacing: -.015em; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
+.num { font-variant-numeric: tabular-nums; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+
+/* Header */
+.mast { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.mast .wrap { display: flex; align-items: center; gap: 28px; padding-block: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+.brand i { width: 14px; height: 14px; background: var(--brand); border-radius: 3px; transform: rotate(45deg); }
+.nav { display: flex; gap: 22px; }
+.nav a { text-decoration: none; font-weight: 600; font-size: 14.5px; color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+.region { margin-left: auto; display: inline-flex; background: var(--chip); border-radius: 999px; padding: 3px; }
+.region button { border: 0; background: transparent; border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 700; cursor: pointer; color: var(--muted); white-space: nowrap; }
+.region button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+.notice { background: var(--brand-soft); color: var(--ink); font-size: 13.5px; }
+.notice .wrap { padding-block: 8px; display: flex; gap: 6px 12px; flex-wrap: wrap; }
+.notice strong { font-weight: 700; }
+
+/* Hero */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: center; padding-block: 56px 48px; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); }
+.hero h1 { font-size: clamp(34px, 4.8vw, 54px); line-height: 1.05; font-weight: 800; letter-spacing: -.03em; margin-top: 14px; }
+.hero h1 span { color: var(--save); }
+.hero .lead { margin-top: 18px; font-size: 18px; color: var(--muted); max-width: 54ch; }
+.hero .cta { margin-top: 26px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 10px; padding: 13px 20px; font-weight: 700; font-size: 15.5px; cursor: pointer; text-decoration: none; }
+.btn.primary { background: var(--brand); color: var(--brand-ink); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn.ghost:hover { background: var(--surface); }
+.fan { position: relative; height: 420px; }
+.fan a { position: absolute; width: 46%; aspect-ratio: 3 / 4; border-radius: 6px; overflow: hidden; box-shadow: var(--cover-shadow); transition: transform .25s ease; }
+.fan a img { width: 100%; height: 100%; object-fit: cover; }
+.fan a:nth-child(1) { left: 2%; top: 48px; transform: rotate(-6deg); }
+.fan a:nth-child(2) { left: 27%; top: 0; z-index: 2; }
+.fan a:nth-child(3) { right: 2%; top: 48px; transform: rotate(6deg); }
+.fan a:hover { transform: translateY(-6px) rotate(0); }
+
+.trust { border-block: 1px solid var(--line); background: var(--surface); }
+.trust .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; padding-block: 20px; }
+.trust div { display: grid; gap: 2px; }
+.trust b { font-size: 15px; }
+.trust span { font-size: 13.5px; color: var(--muted); }
+
+/* Catalog */
+.section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; padding-block: 44px 22px; }
+.section-head h2 { font-size: 30px; font-weight: 800; }
+.section-head p { color: var(--muted); margin-top: 4px; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.chipbtn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 7px 14px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.chipbtn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chipbtn .n { font-size: 12.5px; opacity: .65; margin-left: 4px; }
+
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 34px 24px; padding-bottom: 64px; }
+.card { display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; min-width: 0; }
+.card .cv { aspect-ratio: 3 / 4; border-radius: 6px; overflow: hidden; box-shadow: var(--shadow); background: var(--chip); transition: transform .2s ease, box-shadow .2s ease; }
+.card .cv img { width: 100%; height: 100%; object-fit: cover; }
+.card:hover .cv { transform: translateY(-4px); box-shadow: var(--cover-shadow); }
+.card .meta { font-size: 12.5px; font-weight: 600; color: var(--muted); margin-top: 4px; }
+.card h3 { font-size: 16.5px; font-weight: 700; line-height: 1.3; }
+.card .sub { font-size: 14px; color: var(--muted); line-height: 1.45; }
+.pricerow { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+.pricerow .now { font-weight: 800; font-size: 17px; }
+.pricerow .was { font-size: 13.5px; color: var(--muted); text-decoration: line-through; }
+.save { font-size: 12px; font-weight: 700; background: var(--save-soft); color: var(--save); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+
+/* Info band */
+.band { background: var(--surface); border-block: 1px solid var(--line); }
+.band .wrap { padding-block: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
+.band h2 { font-size: 26px; font-weight: 800; }
+.band p { color: var(--muted); max-width: 60ch; margin-top: 12px; }
+.formula { margin-top: 18px; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 6px 14px; align-items: center; font-weight: 700; }
+.formula span { background: var(--chip); padding: 8px 12px; border-radius: 8px; }
+.formula b { color: var(--save); }
+details { border-bottom: 1px solid var(--line); padding-block: 14px; }
+details summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; color: var(--muted); font-weight: 600; }
+details[open] summary::after { content: "−"; }
+details p { margin-top: 8px; color: var(--muted); }
+
+footer { padding-block: 36px 52px; font-size: 14px; color: var(--muted); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px 48px; }
+footer dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; margin: 0; }
+footer dt { font-weight: 700; color: var(--ink); }
+footer dd { margin: 0; }
+.todo { background: var(--chip); border: 1px dashed var(--muted); border-radius: 4px; padding: 0 6px; font-size: 13px; }
+
+/* Product page */
+.crumbs { padding-block: 22px 0; font-size: 14px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; }
+.crumbs a { text-decoration: none; font-weight: 600; }
+.crumbs a:hover { color: var(--ink); text-decoration: underline; }
+.pp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; padding-block: 26px 40px; align-items: start; }
+.gallery { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); display: grid; gap: 14px; }
+.gallery .main { aspect-ratio: 3 / 4; border-radius: 8px; overflow: hidden; box-shadow: var(--cover-shadow); background: var(--chip); max-width: 460px; width: 100%; }
+.gallery .main button { border: 0; padding: 0; width: 100%; height: 100%; cursor: zoom-in; background: transparent; }
+.gallery .main img { width: 100%; height: 100%; object-fit: cover; }
+.thumbs { display: flex; gap: 10px; max-width: 460px; }
+.thumbs button { flex: 1 1 0; min-width: 0; border: 2px solid transparent; border-radius: 6px; padding: 0; background: var(--surface); cursor: pointer; aspect-ratio: 3 / 4; overflow: hidden; box-shadow: var(--shadow); }
+.thumbs button[aria-current="true"] { border-color: var(--brand); }
+.thumbs img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.thumbs .cap { display: block; font-size: 11.5px; }
+
+.tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { font-size: 12.5px; font-weight: 600; background: var(--chip); padding: 4px 10px; border-radius: 999px; }
+.tag.status { background: transparent; border: 1px dashed var(--muted); color: var(--muted); }
+.pp h1 { font-size: clamp(30px, 3.6vw, 42px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-top: 14px; }
+.pp .tagline { font-size: 17.5px; color: var(--muted); margin-top: 12px; max-width: 58ch; }
+
+.buy { margin-top: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; box-shadow: var(--shadow); display: grid; gap: 16px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--chip); border-radius: 10px; padding: 4px; }
+.seg button { border: 0; background: transparent; border-radius: 8px; padding: 9px 10px; font-weight: 700; font-size: 14px; cursor: pointer; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.buy .big { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.buy .big .now { font-size: 36px; font-weight: 800; letter-spacing: -.03em; }
+.buy .big .was { font-size: 16px; color: var(--muted); text-decoration: line-through; }
+.methods { display: grid; gap: 8px; }
+.methods .lbl { font-size: 13px; font-weight: 700; color: var(--muted); }
+.methods ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.methods li { font-size: 13px; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px; background: var(--bg); }
+.buy .btn { width: 100%; padding: 15px 20px; font-size: 16px; }
+.buy .fine { font-size: 13px; color: var(--muted); }
+.buy .alert { font-size: 14px; background: var(--brand-soft); border-radius: 8px; padding: 10px 12px; }
+
+.sections { display: grid; gap: 34px; margin-top: 34px; }
+.sections h2 { font-size: 21px; font-weight: 800; margin-bottom: 12px; }
+.ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
+.ticks li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; }
+.ticks li::before { content: ""; width: 18px; height: 18px; margin-top: 3px; border-radius: 50%; background: var(--save-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='%230f7a55' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat; }
+.spec { width: 100%; border-collapse: collapse; font-size: 15px; }
+.spec th, .spec td { text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.spec th { width: 34%; font-weight: 600; color: var(--muted); padding-right: 16px; }
+.note { border-left: 3px solid var(--brand); padding: 4px 0 4px 14px; color: var(--muted); font-size: 15px; }
+
+/* Sample pages */
+.samples { background: var(--surface); border-block: 1px solid var(--line); }
+.samples .wrap { padding-block: 44px; }
+.samples h2 { font-size: 26px; font-weight: 800; }
+.samples > .wrap > p { color: var(--muted); margin-top: 6px; }
+.sample-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 24px; }
+.sample { display: grid; gap: 10px; }
+.sample button { border: 1px solid var(--line); padding: 0; border-radius: 6px; overflow: hidden; background: #fff; cursor: zoom-in; box-shadow: var(--shadow); aspect-ratio: 794 / 1123; }
+.sample button img { width: 100%; height: 100%; object-fit: cover; }
+.sample .cap { font-size: 14px; font-weight: 600; }
+.sample .cap span { color: var(--muted); font-weight: 500; }
+
+/* Custom comic builder */
+.builder { background: var(--brand-soft); border-block: 1px solid var(--line); }
+.builder .wrap { padding-block: 44px; }
+.builder h2 { font-size: 26px; font-weight: 800; }
+.builder .lead { color: var(--muted); margin-top: 6px; max-width: 720px; }
+.bform { display: grid; gap: 26px; margin-top: 26px; }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; box-shadow: var(--shadow); }
+.step h3 { font-size: 17px; font-weight: 800; display: flex; gap: 10px; align-items: center; }
+.step h3 b { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--brand); color: var(--brand-ink); font-size: 13px; flex: none; }
+.step .hint { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.photo { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 18px; align-items: center; margin-top: 14px; }
+.photo .pv { aspect-ratio: 3 / 4; border-radius: 10px; border: 2px dashed var(--line); background: var(--chip); display: grid; place-items: center; overflow: hidden; color: var(--muted); font-size: 13px; text-align: center; padding: 8px; }
+.photo .pv img { width: 100%; height: 100%; object-fit: cover; }
+.photo ul { margin: 8px 0 0 18px; color: var(--muted); font-size: 14px; }
+.file-btn { position: relative; overflow: hidden; }
+.file-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.stories { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.story { position: relative; border: 2px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); cursor: pointer; display: grid; align-content: start; text-align: left; }
+.story input { position: absolute; opacity: 0; pointer-events: none; }
+.story img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+.story .t { padding: 10px 11px 12px; display: grid; gap: 4px; }
+.story strong { font-size: 14.5px; line-height: 1.3; }
+.story small { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.story em { font-style: normal; font-size: 11.5px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: .05em; }
+.story:has(input:checked) { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.story:has(input:focus-visible) { outline: 2px solid var(--brand); outline-offset: 3px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.fld { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+.fld input[type=text], .fld input[type=email], .fld textarea { font: inherit; font-weight: 500; font-size: 15px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; width: 100%; }
+.fld textarea { min-height: 92px; resize: vertical; }
+.fld .cnt { font-size: 12px; color: var(--muted); font-weight: 500; justify-self: end; }
+.opts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; }
+.opt span { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 14px; font-weight: 600; font-size: 14px; cursor: pointer; }
+.opt span i { width: 18px; height: 18px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,.15); }
+.opt input:checked + span { border-color: var(--brand); box-shadow: 0 0 0 2px var(--brand); }
+.opt input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
+.consent { display: grid; gap: 10px; margin-top: 12px; font-size: 14px; }
+.consent label { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; align-items: start; }
+.consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--brand); }
+.summary { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; justify-content: space-between; }
+.summary .sum { font-size: 14px; color: var(--muted); }
+.summary .sum b { color: var(--ink); }
+.summary .alert { flex-basis: 100%; }
+@media (max-width: 1000px) { .stories { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .stories { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+  .photo { grid-template-columns: 96px minmax(0, 1fr); gap: 12px; }
+  .photo ul { margin-left: 16px; font-size: 13px; }
+}
+
+/* Market price strip */
+.strip { position: relative; height: 98px; margin-top: 8px; }
+.strip .axis { position: absolute; left: 0; right: 0; top: 46px; height: 2px; background: var(--line); }
+.strip .dot { position: absolute; top: 40px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--surface); border: 2px solid var(--muted); }
+.strip .mk { position: absolute; width: 2px; margin-left: -1px; }
+.strip .mk.mean { top: 26px; height: 42px; background: var(--ink); }
+.strip .mk.ours { top: 30px; height: 34px; background: var(--save); width: 4px; margin-left: -2px; border-radius: 2px; }
+.strip .lab { position: absolute; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.strip .lab.mean { top: 4px; transform: translateX(-50%); }
+.strip .lab.ours { top: 76px; transform: translateX(-50%); color: var(--save); font-weight: 800; }
+.strip .lab.al { transform: none; }
+.strip .lab.ar { transform: translateX(-100%); }
+.strip .tick { position: absolute; top: 58px; font-size: 11.5px; color: var(--muted); transform: translateX(-50%); white-space: nowrap; }
+.strip .tick.l { transform: none; }
+.strip .tick.r { transform: translateX(-100%); }
+.legend { display: flex; gap: 8px 18px; flex-wrap: wrap; font-size: 13px; color: var(--muted); margin-top: 6px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--muted); margin-right: 6px; vertical-align: -1px; }
+.legend i.m { border: 0; border-radius: 0; width: 2px; height: 12px; background: var(--ink); }
+.legend i.o { border: 0; border-radius: 2px; width: 4px; height: 12px; background: var(--save); }
+.srcs { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+.related .wrap { padding-block: 44px 64px; }
+.related h2 { font-size: 24px; font-weight: 800; margin-bottom: 20px; }
+.related .grid { padding-bottom: 0; }
+
+/* Lightbox */
+.lb { position: fixed; inset: 0; z-index: 50; background: rgba(8, 10, 16, .88); display: grid; grid-template-rows: auto minmax(0, 1fr); padding: calc(env(safe-area-inset-top, 0px) + 12px) max(12px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 12px) max(12px, env(safe-area-inset-left, 0px)); }
+.lb .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #fff; font-weight: 600; font-size: 14px; padding-bottom: 10px; }
+.lb .bar div { display: flex; gap: 8px; }
+.lb .bar button { border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.08); color: #fff; border-radius: 8px; padding: 7px 12px; cursor: pointer; font-weight: 700; }
+.lb .stage { min-height: 0; display: grid; place-items: center; overflow: auto; }
+.lb .stage img { max-height: 100%; max-width: min(100%, 900px); height: auto; width: auto; border-radius: 4px; background: #fff; }
+
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 36px 32px; }
+  .fan { height: 360px; max-width: 520px; width: 100%; }
+  .trust .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .band .wrap { grid-template-columns: minmax(0, 1fr); }
+  .pp { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .gallery { position: static; }
+  .nav { display: none; }
+}
+@media (max-width: 640px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 14px; }
+  .fan { height: 270px; }
+  .mast .wrap { gap: 12px; }
+  .region button { padding: 6px 9px; font-size: 12px; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .sample-row { gap: 12px; }
+  .gallery .main, .thumbs { max-width: none; }
+  .card h3 { font-size: 15px; }
+  .trust .wrap { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .card .cv, .fan a { transition: none; } }
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <a class="brand" href="#"><i></i>BuanaHub</a>
+    <nav class="nav" aria-label="Utama">
+      <a href="#katalog">Katalog</a>
+      <a href="#cara-harga">Harga</a>
+      <a href="#bantuan">Bantuan</a>
+    </nav>
+    <div class="region" role="group" aria-label="Lokasi pembeli">
+      <button type="button" id="reg-my" data-region="MY">Malaysia · RM</button>
+      <button type="button" id="reg-intl" data-region="INTL">Global · USD</button>
+    </div>
+  </div>
+</header>
+<div class="notice" role="note">
+  <div class="wrap"><strong>Akan dibuka tidak lama lagi.</strong><span>Anda boleh melihat katalog dan contoh halaman sekarang. Pembelian belum dibuka.</span></div>
+</div>
+
+<main id="app"></main>
+
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Paparan besar">
+  <div class="bar"><span id="lb-cap"></span><div><button type="button" id="lb-prev" aria-label="Sebelum">‹</button><button type="button" id="lb-next" aria-label="Seterusnya">›</button><button type="button" id="lb-close">Tutup</button></div></div>
+  <div class="stage"><img id="lb-img" alt=""></div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p><strong style="color:var(--ink)">BuanaHub</strong> menjual produk digital asli: ebook, templat, planner dan preset. Harga dipaparkan dalam Ringgit Malaysia (RM) untuk pembeli di Malaysia dan dalam Dolar AS (USD) untuk pembeli antarabangsa.</p>
+      <p style="margin-top:10px">Maklumat peniaga di sebelah akan dilengkapkan sebelum kedai dibuka.</p>
+    </div>
+    <dl>
+      <dt>Peniaga</dt><dd><span class="todo">Nama perniagaan</span></dd>
+      <dt>No. SSM</dt><dd><span class="todo">Akan diisi</span></dd>
+      <dt>Alamat</dt><dd><span class="todo">Alamat perniagaan</span></dd>
+      <dt>Emel</dt><dd><span class="todo">sokongan@buanahub.com</span></dd>
+      <dt>Telefon</dt><dd><span class="todo">Akan diisi</span></dd>
+    </dl>
+  </div>
+</footer>
+
+<script>
+const DATA = {"checked": "1 November 2026", "usdToMyr": 4.087, "payments": {"MY": {"label": "Kaedah bayaran di Malaysia (RM)", "methods": ["FPX perbankan dalam talian", "DuitNow QR", "Touch 'n Go eWallet", "GrabPay", "ShopeePay", "Kad debit/kredit"], "headline": "FPX, DuitNow QR & e-wallet", "sub": "Touch 'n Go, GrabPay, ShopeePay dan kad tempatan", "fine": "Bayar dalam Ringgit melalui gerbang pembayaran Malaysia yang selamat.", "faq": "Di Malaysia: FPX, DuitNow QR, Touch 'n Go eWallet, GrabPay, ShopeePay dan kad debit/kredit, dibayar dalam Ringgit."}, "INTL": {"label": "Kaedah bayaran antarabangsa (USD)", "methods": ["Visa", "Mastercard", "American Express", "Apple Pay", "Google Pay"], "headline": "Kad & dompet digital antarabangsa", "sub": "Visa, Mastercard, Amex, Apple Pay dan Google Pay", "fine": "Dicaj dalam Dolar AS melalui gerbang pembayaran antarabangsa yang selamat.", "faq": "Dari luar negara: kad Visa, Mastercard dan American Express serta Apple Pay dan Google Pay, dibayar dalam Dolar AS."}}, "products": [{"slug": "ai-kerja-harian", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["BM"], "title": "AI untuk Kerja Harian", "short": "Gemini, ChatGPT dan Claude untuk tugas pejabat", "tagline": "Panduan praktikal menggunakan Gemini, ChatGPT dan Claude untuk emel, laporan, Excel dan mesyuarat, dengan contoh kerja sebenar di pejabat Malaysia.", "includes": ["Ebook PDF dalam Bahasa Melayu, lebih kurang 90 halaman", "Cara memilih alat AI yang sesuai: Gemini, ChatGPT atau Claude", "40 contoh tugas pejabat: emel, minit mesyuarat, laporan dan kertas cadangan", "Bab khas Excel dan Google Sheets: formula, ringkasan data dan carta", "100 prompt sedia salin dalam BM dan English", "Senarai semak keselamatan data sebelum menampal maklumat sulit ke dalam AI"], "forWho": ["Pekerja pejabat sektor awam dan swasta", "Pemilik PKS yang menulis sendiri dokumen perniagaan", "Pelajar IPT dan graduan yang mahu kemahiran AI"], "spec": {"Format": "PDF, sesuai dibaca di telefon dan komputer", "Bahasa": "Bahasa Melayu; prompt dalam BM dan English", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Edisi baharu percuma selama 12 bulan", "Lesen": "Kegunaan peribadi"}, "note": null, "groupLabel": "Ebook", "coverImg": "site/covers/ai-kerja-harian.jpg", "samples": [{"img": "site/pages/ai-kerja-harian-1.jpg", "label": "Isi kandungan"}, {"img": "site/pages/ai-kerja-harian-2.jpg", "label": "Bab 5: Minit mesyuarat daripada catatan kasar"}], "market": {"currency": "RM", "mean": 51.36, "n": 5, "prices": [29.0, 39.9, 89.0, 19.9, 79.0], "platforms": ["laman penjual Malaysia", "OnPay"]}, "priceRM": 35.9, "priceUSD": 8.79, "meanRM": 51.36, "meanUSD": 12.57, "savePct": 30}, {"slug": "tiktok-affiliate", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["BM"], "title": "TikTok Affiliate dari Sifar", "short": "Daftar, pilih produk, buat video, faham komisen", "tagline": "Langkah demi langkah memulakan TikTok Affiliate di Malaysia: syarat kelayakan, memilih produk, membuat video jualan dan membaca papan pemuka komisen.", "includes": ["Ebook PDF, lebih kurang 70 halaman", "Syarat dan langkah mendaftar TikTok Shop Affiliate di Malaysia", "Cara memilih produk, memohon sampel dan memasang beg kuning pada video dan LIVE", "30 skrip video pendek, 30 ayat pembuka dan skrip LIVE", "Jadual kandungan 30 hari", "Cara membaca analitik, menjejak dan mengeluarkan komisen"], "forWho": ["Pemula yang mahu mula menjual sebagai affiliate", "Pencipta kandungan yang mahu menjana jualan", "Peniaga kecil yang mahu faham sistem affiliate"], "spec": {"Format": "PDF", "Bahasa": "Bahasa Melayu", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Edisi baharu percuma 12 bulan apabila polisi TikTok berubah", "Lesen": "Kegunaan peribadi"}, "note": "Pendapatan bergantung pada usaha, produk dan pasaran. Ebook ini tidak menjanjikan sebarang jumlah pendapatan.", "groupLabel": "Ebook", "coverImg": "site/covers/tiktok-affiliate.jpg", "samples": [{"img": "site/pages/tiktok-affiliate-1.jpg", "label": "Isi kandungan"}, {"img": "site/pages/tiktok-affiliate-2.jpg", "label": "Bab 8: Skrip video 30 saat, contoh lengkap"}], "market": {"currency": "RM", "mean": 33.46, "n": 5, "prices": [42.5, 19.0, 39.0, 36.78, 30.0], "platforms": ["BookCafe", "OnPay", "Convertly", "Gumroad", "Klikjer"]}, "priceRM": 22.9, "priceUSD": 5.69, "meanRM": 33.46, "meanUSD": 8.19, "savePct": 30}, {"slug": "ai-prompts-small-business", "group": "ebook", "kind": "ebook", "category": "Ebook + prompt", "lang": ["EN"], "title": "AI Prompts for Small Business", "short": "Prompt sedia guna untuk pemasaran, jualan dan operasi", "tagline": "Ebook dan pek prompt dalam English untuk pemilik perniagaan kecil: pemasaran, jualan, khidmat pelanggan dan operasi harian.", "includes": ["Ebook PDF dalam English, lebih kurang 60 halaman", "300 prompt disusun mengikut 8 fungsi perniagaan", "15 formula prompt untuk menulis prompt anda sendiri", "Pek prompt dalam Google Docs dan Notion untuk disalin terus", "Contoh input dan hasil untuk setiap kategori, untuk ChatGPT, Claude dan Gemini"], "forWho": ["Pemilik perniagaan kecil dan freelancer", "Pemasar yang menggunakan ChatGPT, Claude atau Gemini", "Pasukan jualan dan khidmat pelanggan"], "spec": {"Format": "PDF + Google Docs + templat Notion", "Bahasa": "English", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Prompt baharu percuma selama 12 bulan", "Lesen": "Kegunaan perniagaan sendiri"}, "note": null, "groupLabel": "Ebook", "coverImg": "site/covers/ai-prompts-small-business.jpg", "samples": [{"img": "site/pages/ai-prompts-small-business-1.jpg", "label": "Contents"}, {"img": "site/pages/ai-prompts-small-business-2.jpg", "label": "Chapter 6: Customer service prompts, with a worked example"}], "market": {"currency": "USD", "mean": 15.24, "n": 9, "prices": [29.99, 37.0, 11.0, 10.0, 19.0, 9.0, 9.0, 5.2, 6.99], "platforms": ["Gumroad", "Etsy"]}, "priceRM": 42.9, "priceUSD": 10.59, "meanRM": 62.29, "meanUSD": 15.24, "savePct": 30}, {"slug": "kedai-produk-digital-ai", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["BM", "EN"], "title": "Bina Kedai Produk Digital dengan AI", "short": "Dari idea produk hingga jualan pertama", "tagline": "Panduan membina kedai produk digital sendiri dengan bantuan AI: memilih produk, menghasilkannya, menetapkan harga, menerima bayaran dan memasarkan. Edisi Bahasa Melayu dan English.", "includes": ["Dua edisi PDF, Bahasa Melayu dan English, lebih kurang 100 halaman setiap satu", "50 idea produk digital dan cara menyemak permintaan serta harga pasaran", "Aliran kerja AI untuk menulis ebook serta mereka templat dan kulit buku", "Persediaan Stripe, Gumroad dan halaman jualan", "Pelan pelancaran 30 hari dan kajian kes BuanaHub", "Senarai semak pematuhan Malaysia: SSM, PDPA dan maklumat peniaga dalam talian"], "forWho": ["Pekerja yang mahu bina perniagaan digital sampingan", "Pencipta kandungan yang mahu jual produk sendiri", "Pemilik PKS yang mahu tambah produk digital"], "spec": {"Format": "PDF, dua edisi", "Bahasa": "Bahasa Melayu dan English", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Edisi baharu percuma selama 12 bulan", "Lesen": "Kegunaan peribadi"}, "note": "Tiada janji pendapatan. Hasil bergantung pada produk, pemasaran dan usaha anda.", "groupLabel": "Ebook", "coverImg": "site/covers/kedai-produk-digital-ai.jpg", "samples": [{"img": "site/pages/kedai-produk-digital-ai-1.jpg", "label": "Isi kandungan"}, {"img": "site/pages/kedai-produk-digital-ai-2.jpg", "label": "Bab 3: Menetapkan harga daripada data pasaran"}], "market": {"currency": "RM", "mean": 51.99, "n": 5, "prices": [40.46, 79.7, 69.48, 61.31, 9.0], "platforms": ["Gumroad (penjual Malaysia)", "OnPay"]}, "priceRM": 35.9, "priceUSD": 8.89, "meanRM": 51.99, "meanUSD": 12.72, "savePct": 30}, {"slug": "bajet-gaji", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["BM"], "title": "Bajet Gaji: Urus Wang Bulanan", "coverTitle": "Bajet Gaji", "short": "Rancang gaji, kurangkan hutang, mula menyimpan", "tagline": "Sistem bajet mudah untuk pekerja bergaji di Malaysia: agihkan gaji, kawal hutang kad kredit dan PTPTN, dan mula membina dana kecemasan.", "includes": ["Ebook PDF, lebih kurang 60 halaman", "Kaedah agihan gaji 50/30/20 yang disesuaikan untuk pendapatan RM2,000 hingga RM8,000", "Pelan 90 hari membina dana kecemasan", "Strategi melangsaikan hutang dan cara menyemak rekod CTOS dan CCRIS", "Templat bajet Google Sheets percuma", "Contoh bajet untuk bujang, pasangan dan keluarga beranak"], "forWho": ["Pekerja bergaji yang gaji habis sebelum hujung bulan", "Pasangan yang mahu merancang kewangan bersama", "Graduan yang baru menerima gaji pertama"], "spec": {"Format": "PDF + templat Google Sheets", "Bahasa": "Bahasa Melayu", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi"}, "note": "Ebook ini bersifat pendidikan kewangan am dan bukan nasihat kewangan peribadi.", "groupLabel": "Ebook", "coverImg": "site/covers/bajet-gaji.jpg", "samples": [{"img": "site/pages/bajet-gaji-1.jpg", "label": "Isi kandungan"}, {"img": "site/pages/bajet-gaji-2.jpg", "label": "Bab 3: Contoh agihan gaji bersih RM3,500"}], "market": {"currency": "RM", "mean": 41.14, "n": 7, "prices": [57.0, 29.0, 27.0, 27.0, 19.0, 30.0, 99.0], "platforms": ["e-Sentral", "Klikjer", "OnPay", "laman penulis Malaysia"]}, "priceRM": 27.9, "priceUSD": 6.99, "meanRM": 41.14, "meanUSD": 10.07, "savePct": 30}, {"slug": "air-fryer", "group": "ebook", "kind": "ebook", "category": "Ebook resipi", "lang": ["EN", "BM"], "title": "Air Fryer Recipes for Beginners", "short": "Resipi mudah, edisi English dan masakan Malaysia", "tagline": "Resipi air fryer untuk pemula dengan suhu dan masa memasak yang jelas. Termasuk edisi Bahasa Melayu dengan resipi masakan Malaysia.", "includes": ["Ebook PDF English, 75 resipi", "Edisi Bahasa Melayu: 30 resipi Malaysia seperti ayam goreng berempah, keropok lekor dan pisang goreng", "Carta suhu dan masa memasak untuk 60 bahan", "Pelan menu 2 minggu dan senarai barang dapur", "Tip memilih dan menjaga air fryer"], "forWho": ["Pemilik air fryer baharu", "Keluarga sibuk yang mahu masak cepat", "Sesiapa yang mahu kurangkan minyak"], "spec": {"Format": "PDF, sesuai skrin telefon dan tablet", "Bahasa": "English; edisi Bahasa Melayu", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi"}, "note": null, "groupLabel": "Ebook", "coverImg": "site/covers/air-fryer.jpg", "samples": [{"img": "site/pages/air-fryer-1.jpg", "label": "Contents"}, {"img": "site/pages/air-fryer-2.jpg", "label": "Recipe 24: Honey Garlic Chicken Wings"}], "market": {"currency": "USD", "mean": 10.73, "n": 10, "prices": [9.97, 12.0, 13.95, 9.99, 9.99, 19.99, 17.0, 1.29, 3.99, 9.1], "platforms": ["Gumroad", "Barnes & Noble NOOK", "Lulu"]}, "priceRM": 29.9, "priceUSD": 7.49, "meanRM": 43.85, "meanUSD": 10.73, "savePct": 30}, {"slug": "potty-training", "group": "ebook", "kind": "ebook", "category": "Ebook keibubapaan", "lang": ["EN", "BM"], "title": "Potty Training in 3 Days", "short": "Toilet training anak, edisi English dan BM", "tagline": "Kaedah 3 hari yang tersusun untuk melatih anak ke tandas, dengan edisi Bahasa Melayu \"Toilet Training Anak\".", "includes": ["Ebook PDF English dan edisi Bahasa Melayu, lebih kurang 50 halaman setiap satu", "Senarai semak tanda anak sudah bersedia dan senarai barang persediaan", "Jadual hari pertama hingga ketiga, jam demi jam", "Cara menangani kemalangan, penolakan, latihan waktu malam dan keluar rumah", "Panduan ringkas untuk pengasuh dan datuk nenek", "Carta ganjaran dan penjejak kemajuan boleh cetak"], "forWho": ["Ibu bapa anak berumur 18 bulan hingga 3 tahun", "Pengasuh dan taska", "Ibu bapa yang pernah cuba tetapi tidak berjaya"], "spec": {"Format": "PDF + carta boleh cetak", "Bahasa": "English dan Bahasa Melayu", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi"}, "note": "Panduan keibubapaan am. Rujuk doktor jika anak mempunyai masalah kesihatan atau perkembangan.", "groupLabel": "Ebook", "coverImg": "site/covers/potty-training.jpg", "samples": [{"img": "site/pages/potty-training-1.jpg", "label": "Contents"}, {"img": "site/pages/potty-training-2.jpg", "label": "Chapter 4: Day 1, hour by hour"}], "market": {"currency": "USD", "mean": 14.99, "n": 8, "prices": [9.0, 27.99, 12.99, 19.99, 27.0, 4.0, 13.99, 4.99], "platforms": ["Gumroad", "Payhip", "Apple Books", "Lulu"]}, "priceRM": 41.9, "priceUSD": 10.49, "meanRM": 61.26, "meanUSD": 14.99, "savePct": 30}, {"slug": "emotional-intelligence", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["EN"], "title": "Emotional Intelligence at Work", "short": "Kawal emosi, faham orang, urus konflik", "tagline": "Ebook English tentang kecerdasan emosi di tempat kerja: kesedaran diri, kawalan emosi, empati dan pengurusan konflik, dengan latihan praktikal.", "includes": ["Ebook PDF dan EPUB, lebih kurang 120 halaman", "5 komponen kecerdasan emosi dengan contoh situasi kerja", "Pelan latihan 30 hari dan lembaran kerja boleh cetak", "Skrip perbualan untuk maklum balas sukar dan konflik", "Penilaian kendiri sebelum dan selepas"], "forWho": ["Pengurus dan ketua pasukan baharu", "Pekerja yang mahu kemajuan kerjaya", "Sesiapa yang sering berdepan konflik di tempat kerja"], "spec": {"Format": "PDF dan EPUB", "Bahasa": "English", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi"}, "note": null, "groupLabel": "Ebook", "coverImg": "site/covers/emotional-intelligence.jpg", "samples": [{"img": "site/pages/emotional-intelligence-1.jpg", "label": "Contents"}, {"img": "site/pages/emotional-intelligence-2.jpg", "label": "Chapter 8: Script for a difficult feedback conversation"}], "market": {"currency": "USD", "mean": 13.18, "n": 10, "prices": [28.0, 14.99, 15.0, 2.99, 11.99, 12.99, 9.99, 8.9, 6.99, 19.99], "platforms": ["Payhip", "Gumroad", "Selar", "Barnes & Noble NOOK", "Apple Books", "BookLocker"]}, "priceRM": 36.9, "priceUSD": 9.19, "meanRM": 53.87, "meanUSD": 13.18, "savePct": 30}, {"slug": "resepi-jualan", "group": "ebook", "kind": "ebook", "category": "Ebook resipi", "lang": ["BM"], "title": "Resipi Jualan dari Dapur Rumah", "short": "Resipi laku dengan kos dan harga jual", "tagline": "Resipi kuih, kek, frozen food dan lauk yang laku dijual, lengkap dengan kos bahan, saiz hidangan dan cadangan harga jual.", "includes": ["Ebook PDF, 40 resipi", "Kiraan kos bahan, harga jual dan untung seunit untuk setiap resipi", "Templat kira kos Google Sheets", "Cara mendapat 50 pelanggan pertama melalui WhatsApp dan Facebook", "Panduan pembungkusan, label dan jangka hayat", "Asas keperluan pengendali makanan: kursus, suntikan tifoid dan pendaftaran"], "forWho": ["Suri rumah yang mahu menjana pendapatan dari rumah", "Peniaga makanan kecil yang mahu kira untung dengan betul", "Sesiapa yang mahu mula jual makanan secara dalam talian"], "spec": {"Format": "PDF + templat Google Sheets", "Bahasa": "Bahasa Melayu", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi dan perniagaan sendiri"}, "note": "Harga bahan berubah mengikut lokasi dan masa. Gunakan templat untuk mengira semula kos anda.", "groupLabel": "Ebook", "coverImg": "site/covers/resepi-jualan.jpg", "samples": [{"img": "site/pages/resepi-jualan-1.jpg", "label": "Isi kandungan"}, {"img": "site/pages/resepi-jualan-2.jpg", "label": "Resipi 27: Karipap sejuk beku, dengan kos dan harga jual"}], "market": {"currency": "RM", "mean": 35.8, "n": 5, "prices": [49.0, 40.0, 30.0, 30.0, 30.0], "platforms": ["penjual Malaysia melalui OnPay, Klikjer dan ordersini"]}, "priceRM": 24.9, "priceUSD": 6.09, "meanRM": 35.8, "meanUSD": 8.76, "savePct": 30}, {"slug": "asas-saham", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["BM"], "title": "Asas Pelaburan Saham untuk Pemula", "coverTitle": "Asas Pelaburan Saham", "short": "Faham Bursa Malaysia sebelum melabur", "tagline": "Pengenalan pelaburan saham di Bursa Malaysia: membuka akaun CDS, membaca laporan kewangan asas, memahami risiko dan membina disiplin melabur.", "includes": ["Ebook PDF, lebih kurang 110 halaman", "Cara membuka akaun CDS dan memilih broker", "Saham patuh Syariah: cara membaca senarai Majlis Penasihat Syariah", "Membaca penyata kewangan: hasil, untung bersih, dividen dan P/E", "Kos dagangan: brokeraj, yuran penjelasan, duti setem dan SST", "Glosari 80 istilah dan senarai semak sebelum membeli saham pertama"], "forWho": ["Pemula yang belum pernah membeli saham", "Pekerja yang mahu faham laporan kewangan syarikat", "Pelajar ekonomi dan perniagaan"], "spec": {"Format": "PDF", "Bahasa": "Bahasa Melayu", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi"}, "note": "Ebook ini untuk pendidikan sahaja. Ia tidak mengandungi cadangan membeli atau menjual mana-mana saham.", "groupLabel": "Ebook", "coverImg": "site/covers/asas-saham.jpg", "samples": [{"img": "site/pages/asas-saham-1.jpg", "label": "Isi kandungan"}, {"img": "site/pages/asas-saham-2.jpg", "label": "Bab 7: Membaca penyata pendapatan, mengira EPS dan P/E"}], "market": {"currency": "RM", "mean": 54.4, "n": 5, "prices": [80.0, 70.0, 20.0, 39.0, 63.0], "platforms": ["laman penulis Malaysia", "toyyibPay", "OnPay"]}, "priceRM": 37.9, "priceUSD": 9.29, "meanRM": 54.4, "meanUSD": 13.31, "savePct": 30}, {"slug": "cipta-gambar-video-ai", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["BM", "EN"], "title": "Cipta Gambar & Video AI", "short": "Gambar produk, thumbnail dan video pendek dengan AI", "tagline": "Panduan menghasilkan gambar produk, thumbnail, poster dan video pendek dengan alat AI terkini seperti Nano Banana, Veo, Kling dan Higgsfield, untuk pencipta kandungan dan peniaga dalam talian. Edisi Bahasa Melayu dan English.", "includes": ["Dua edisi PDF, Bahasa Melayu dan English, lebih kurang 90 halaman setiap satu", "Formula prompt gambar: subjek, gaya, pencahayaan, sudut kamera dan lensa", "Bab khas gambar produk untuk peniaga Shopee, TikTok Shop dan Instagram", "Watak yang konsisten merentas banyak gambar dan video", "Dari gambar ke video: prompt gerakan kamera dan papan cerita", "120 prompt sedia salin, dalam BM dengan padanan English", "Peraturan selamat: izin wajah, hak cipta dan label kandungan AI"], "forWho": ["Pencipta kandungan TikTok, Instagram dan YouTube", "Peniaga dalam talian yang mahu gambar produk tanpa studio", "Pemula yang mahu belajar menghasilkan video AI"], "spec": {"Format": "PDF, dua edisi", "Bahasa": "Bahasa Melayu dan English", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Edisi baharu percuma selama 12 bulan", "Lesen": "Kegunaan peribadi"}, "note": "Sesetengah alat AI memerlukan langganan berbayar. Ebook ini menunjukkan pilihan percuma apabila ada.", "groupLabel": "Ebook", "coverImg": "site/covers/cipta-gambar-video-ai.jpg", "samples": [{"img": "site/pages/cipta-gambar-video-ai-1.jpg", "label": "Isi kandungan"}, {"img": "site/pages/cipta-gambar-video-ai-2.jpg", "label": "Bab 4: Formula prompt untuk gambar produk"}], "market": {"currency": "USD", "mean": 10.53, "n": 8, "prices": [2.99, 4.99, 18.0, 2.99, 14.01, 11.58, 25.0, 4.65], "platforms": ["Gumroad", "Etsy", "penjual Malaysia (BCL)"]}, "priceRM": 29.9, "priceUSD": 7.29, "meanRM": 43.04, "meanUSD": 10.53, "savePct": 30}, {"slug": "ai-agents-automation", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["EN"], "title": "AI Agents & Automation for Non-Coders", "coverTitle": "AI Agents & Automation", "short": "Bina agen AI pertama dengan n8n, Make, Zapier dan Claude", "tagline": "Panduan English untuk mengautomasikan kerja berulang tanpa menulis kod: emel, CRM, hantaran media sosial dan laporan, menggunakan n8n, Make, Zapier dan agen Claude atau ChatGPT.", "includes": ["Ebook PDF dalam English, lebih kurang 110 halaman", "Beza automasi dan agen AI: model, memori dan alat", "Perbandingan n8n, Make dan Zapier: kos, had dan bila guna setiap satu", "Bina agen pertama langkah demi langkah", "20 projek sebenar mengikut jabatan: jualan, pemasaran, operasi dan khidmat pelanggan", "15 templat aliran kerja n8n (JSON) sedia import", "Senarai semak keselamatan, kawalan kos dan penyelesaian masalah"], "forWho": ["Pemilik perniagaan kecil dan freelancer", "Staf operasi dan pemasaran yang mahu kurangkan kerja manual", "Sesiapa yang mahu guna agen AI tanpa belajar pengaturcaraan"], "spec": {"Format": "PDF + templat JSON n8n", "Bahasa": "English", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Edisi baharu percuma selama 12 bulan", "Lesen": "Kegunaan perniagaan sendiri"}, "note": null, "groupLabel": "Ebook", "coverImg": "site/covers/ai-agents-automation.jpg", "samples": [{"img": "site/pages/ai-agents-automation-1.jpg", "label": "Contents"}, {"img": "site/pages/ai-agents-automation-2.jpg", "label": "Chapter 5: Your first agent, inbox triage"}], "market": {"currency": "USD", "mean": 12.82, "n": 8, "prices": [18.34, 10.93, 5.6, 19.99, 9.0, 19.95, 15.99, 2.8], "platforms": ["Etsy", "Gumroad", "Payhip", "laman penerbit"]}, "priceRM": 35.9, "priceUSD": 8.89, "meanRM": 52.4, "meanUSD": 12.82, "savePct": 30}, {"slug": "vibe-coding", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["EN"], "title": "Vibe Coding for Beginners", "short": "Bina app pertama dengan AI, tanpa latar belakang pengaturcaraan", "tagline": "Panduan English untuk bukan pengaturcara: bina laman web, alat dalaman dan app ringkas dengan mengarahkan agen pengekodan AI seperti Claude Code, Cursor dan Lovable.", "includes": ["Ebook PDF dalam English, lebih kurang 100 halaman", "Memilih alat: Claude Code, Cursor, Lovable, Replit dan lain-lain", "Asas terminal, Git dan cara memberi arahan yang jelas kepada agen", "Pelan bina 7 hari dan 12 projek permulaan dengan prompt sedia tampal", "Lembaran kerja: idea, spesifikasi, lakaran skrin, log pepijat dan senarai semak pelancaran", "Had dan keselamatan vibe coding: apa yang perlu disemak sebelum dilancarkan", "Cara melancarkan laman atau app ke internet"], "forWho": ["Pereka, pengasas dan pemilik perniagaan kecil", "Pelajar dan pekerja yang mahu bina alat sendiri", "Sesiapa yang ada idea app tetapi tidak tahu menulis kod"], "spec": {"Format": "PDF + lembaran kerja boleh cetak", "Bahasa": "English", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Edisi baharu percuma selama 12 bulan", "Lesen": "Kegunaan peribadi"}, "note": "Alat pengekodan AI dikemas kini dengan kerap. Edisi ini bertarikh 2026 dan edisi baharu diberi percuma selama 12 bulan.", "groupLabel": "Ebook", "coverImg": "site/covers/vibe-coding.jpg", "samples": [{"img": "site/pages/vibe-coding-1.jpg", "label": "Contents"}, {"img": "site/pages/vibe-coding-2.jpg", "label": "Chapter 6: Day 1, write a one-page spec"}], "market": {"currency": "USD", "mean": 11.47, "n": 5, "prices": [3.89, 14.99, 22.0, 4.48, 12.0], "platforms": ["Etsy"]}, "priceRM": 31.9, "priceUSD": 7.99, "meanRM": 46.88, "meanUSD": 11.47, "savePct": 30}, {"slug": "ai-untuk-guru", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["BM"], "title": "AI untuk Guru", "short": "RPH, bahan PdP, pentaksiran dan PBD dengan AI percuma", "tagline": "Panduan guru Malaysia menggunakan ChatGPT, Gemini dan Gemini Notebook (dahulu NotebookLM) untuk menyediakan RPH, lembaran kerja, soalan, rubrik dan laporan PBD, selari dengan KSSR dan KSSM.", "includes": ["Ebook PDF, lebih kurang 120 halaman", "Peraturan selamat guna AI di sekolah dan perlindungan data murid", "Menyediakan RPH dan aktiviti untuk kelas pelbagai aras", "Menjana lembaran kerja, soalan, skema jawapan dan rubrik", "Maklum balas murid dan laporan pentaksiran bilik darjah (PBD)", "Templat komunikasi dengan ibu bapa", "150 prompt sedia salin, disusun mengikut tugasan guru"], "forWho": ["Guru sekolah KPM, kolej vokasional dan sekolah swasta", "Guru tuisyen dan pusat tuisyen", "Guru pelatih"], "spec": {"Format": "PDF, sesuai dibaca di telefon dan komputer", "Bahasa": "Bahasa Melayu; prompt dalam BM dan English", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Edisi baharu percuma selama 12 bulan", "Lesen": "Kegunaan peribadi"}, "note": "Ebook ini tidak dikeluarkan atau disahkan oleh Kementerian Pendidikan Malaysia. Semak dokumen standard kurikulum terkini sebelum digunakan.", "groupLabel": "Ebook", "coverImg": "site/covers/ai-untuk-guru.jpg", "samples": [{"img": "site/pages/ai-untuk-guru-1.jpg", "label": "Isi kandungan"}, {"img": "site/pages/ai-untuk-guru-2.jpg", "label": "Bab 4: Draf RPH dalam 10 minit"}], "market": {"currency": "RM", "mean": 42.99, "n": 6, "prices": [39.9, 59.26, 89.91, 7.6, 20.39, 40.87], "platforms": ["Skolar (Malaysia)", "Etsy", "Apple Books", "Payhip"]}, "priceRM": 29.9, "priceUSD": 7.29, "meanRM": 42.99, "meanUSD": 10.52, "savePct": 30}, {"slug": "prompt-context-engineering", "group": "ebook", "kind": "ebook", "category": "Ebook", "lang": ["EN"], "title": "Prompt & Context Engineering Mastery", "coverTitle": "Prompt & Context Engineering", "short": "Kaedah mendapat hasil pakar daripada ChatGPT, Claude dan Gemini", "tagline": "Kaedah berstruktur, bukan sekadar senarai prompt: formula prompt, pengurusan konteks dengan Projects, skills dan plugin (termasuk peralihan daripada Custom GPTs dan Gems), model penaakulan, serta cara menilai dan memperbaiki jawapan AI.", "includes": ["Ebook PDF dan EPUB dalam English, lebih kurang 130 halaman", "Formula prompt: peranan, konteks, tugasan, format, kekangan dan contoh", "Kejuruteraan konteks: fail rujukan, Projects, skills, memori, dan peralihan daripada Custom GPTs dan Gems", "Memberi arahan kepada model penaakulan, dan bila prompt panjang tidak perlu", "Menilai dan memperbaiki jawapan yang umum atau tersasar", "Helaian rujukan pantas untuk ChatGPT, Claude dan Gemini", "Asas keselamatan: suntikan prompt dan data sulit"], "forWho": ["Pekerja ilmu yang sudah guna chatbot tetapi dapat jawapan umum", "Pencipta kandungan dan penyelidik", "Pelajar dan profesional yang mahu kaedah yang boleh diulang"], "spec": {"Format": "PDF dan EPUB", "Bahasa": "English", "Penghantaran": "Pautan muat turun melalui emel", "Kemas kini": "Edisi baharu percuma selama 12 bulan", "Lesen": "Kegunaan peribadi"}, "note": null, "groupLabel": "Ebook", "coverImg": "site/covers/prompt-context-engineering.jpg", "samples": [{"img": "site/pages/prompt-context-engineering-1.jpg", "label": "Contents"}, {"img": "site/pages/prompt-context-engineering-2.jpg", "label": "Chapter 2: Rewriting a weak prompt, part by part"}], "market": {"currency": "USD", "mean": 13.68, "n": 7, "prices": [24.99, 26.39, 19.0, 13.19, 2.74, 4.45, 5.0], "platforms": ["Packt", "Manning", "Leanpub", "Etsy", "Gumroad"]}, "priceRM": 38.9, "priceUSD": 9.49, "meanRM": 55.91, "meanUSD": 13.68, "savePct": 30}, {"slug": "templat-bajet", "group": "templat", "kind": "sheet", "category": "Templat Google Sheets", "lang": ["BM", "EN"], "title": "Templat Bajet Rumah Tangga", "short": "Bajet, perbelanjaan, simpanan dan hutang", "tagline": "Templat Google Sheets dan Excel untuk merancang bajet bulanan dan menjejak perbelanjaan, simpanan serta hutang, dengan papan pemuka automatik.", "includes": ["Templat Google Sheets dan Excel untuk 12 bulan", "Papan pemuka automatik: pendapatan, perbelanjaan dan baki", "Penjejak simpanan, dana khas dan nilai bersih", "Penjejak hutang kaedah bola salji dan avalanche", "Kategori Malaysia sedia ada: KWSP, PTPTN, zakat dan sewa", "Contoh lengkap dan panduan pendek dalam BM dan English"], "forWho": ["Keluarga yang mahu kawal perbelanjaan bulanan", "Individu yang sedang melangsaikan hutang", "Sesiapa yang menyimpan untuk matlamat tertentu"], "spec": {"Format": "Google Sheets dan Microsoft Excel", "Bahasa": "Bahasa Melayu dan English", "Keperluan": "Akaun Google percuma atau Excel", "Penghantaran": "Pautan salinan dan fail melalui emel", "Lesen": "Kegunaan peribadi"}, "note": null, "groupLabel": "Templat & planner", "coverImg": "site/covers/templat-bajet.jpg", "samples": [{"img": "site/pages/templat-bajet-1.jpg", "label": "Papan pemuka bulanan"}, {"img": "site/pages/templat-bajet-2.jpg", "label": "Penjejak hutang & simpanan"}], "market": {"currency": "USD", "mean": 8.57, "n": 10, "prices": [8.78, 5.15, 3.51, 7.95, 10.85, 10.44, 12.0, 10.0, 10.0, 6.99], "platforms": ["Etsy", "Gumroad", "Payhip"]}, "priceRM": 23.9, "priceUSD": 5.99, "meanRM": 35.03, "meanUSD": 8.57, "savePct": 30}, {"slug": "digital-planner-2027", "group": "templat", "kind": "sheet", "category": "Planner digital", "lang": ["EN", "BM"], "title": "Digital Planner 2027", "short": "Planner hyperlink untuk GoodNotes dan Notability", "tagline": "Planner digital 2027 dengan hyperlink untuk iPad dan tablet Android: tahunan, bulanan, mingguan dan harian, termasuk cuti umum Malaysia.", "includes": ["PDF hyperlink lebih 600 halaman, Januari hingga Disember 2027, serta versi tanpa tarikh", "Halaman tahunan, suku tahun, bulanan, mingguan dan harian", "Cuti umum Malaysia 2027 sudah ditanda", "Penjejak tabiat, kewangan, kesihatan dan matlamat", "Pilihan minggu bermula Ahad atau Isnin", "500 pelekat digital dan 20 kulit pilihan"], "forWho": ["Pengguna iPad dan tablet Android", "Pelajar dan pekerja yang merancang secara digital", "Sesiapa yang mahu satu planner untuk kerja dan peribadi"], "spec": {"Format": "PDF hyperlink", "Bahasa": "English; cuti umum dalam BM", "Keperluan": "GoodNotes, Notability, Xodo atau aplikasi PDF lain", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi"}, "note": null, "groupLabel": "Templat & planner", "coverImg": "site/covers/digital-planner-2027.jpg", "samples": [{"img": "site/pages/digital-planner-2027-1.jpg", "label": "Halaman bulanan Mac 2027"}, {"img": "site/pages/digital-planner-2027-2.jpg", "label": "Halaman mingguan & penjejak tabiat"}], "market": {"currency": "USD", "mean": 16.61, "n": 10, "prices": [4.98, 3.28, 7.25, 15.0, 14.64, 14.95, 15.0, 8.99, 50.0, 32.0], "platforms": ["Etsy", "Payhip", "Gumroad", "laman jenama planner"]}, "priceRM": 46.9, "priceUSD": 11.59, "meanRM": 67.89, "meanUSD": 16.61, "savePct": 30}, {"slug": "notion-life-business-os", "group": "templat", "kind": "sheet", "category": "Templat Notion", "lang": ["EN"], "title": "Notion Life & Business OS", "short": "Tugas, matlamat, kewangan dan kandungan dalam satu tempat", "tagline": "Templat Notion menyeluruh untuk mengurus kehidupan dan perniagaan: tugas, projek, matlamat, tabiat, kewangan dan perancang kandungan.", "includes": ["Templat Notion sedia disalin ke ruang kerja anda", "Papan pemuka harian: tugas, kalendar dan tabiat", "Pengurus projek dan matlamat suku tahun", "Penjejak kewangan peribadi dan perniagaan", "Perancang kandungan media sosial", "CRM ringkas untuk pelanggan"], "forWho": ["Freelancer dan pemilik perniagaan solo", "Pencipta kandungan", "Pengguna Notion yang mahu sistem siap pakai"], "spec": {"Format": "Templat Notion (pautan salinan)", "Bahasa": "English", "Keperluan": "Akaun Notion percuma", "Penghantaran": "Pautan templat melalui emel", "Lesen": "Kegunaan peribadi dan perniagaan sendiri"}, "note": null, "groupLabel": "Templat & planner", "coverImg": "site/covers/notion-life-business-os.jpg", "samples": [{"img": "site/pages/notion-life-business-os-1.jpg", "label": "Papan pemuka utama"}, {"img": "site/pages/notion-life-business-os-2.jpg", "label": "Perancang kandungan"}], "market": {"currency": "USD", "mean": 31.75, "n": 11, "prices": [15.69, 17.58, 29.99, 40.98, 49.0, 19.0, 11.0, 69.0, 59.0, 20.0, 18.0], "platforms": ["Etsy", "Gumroad", "Notion Everything", "laman pencipta"]}, "priceRM": 89.9, "priceUSD": 22.19, "meanRM": 129.76, "meanUSD": 31.75, "savePct": 30}, {"slug": "canva-media-sosial", "group": "templat", "kind": "sheet", "category": "Templat Canva", "lang": ["BM", "EN"], "title": "Pek 100 Templat Canva Media Sosial", "coverTitle": "100 Templat Canva Media Sosial", "short": "Post dan story untuk peniaga kecil", "tagline": "100 templat Canva boleh edit untuk Instagram, TikTok dan Facebook: promosi, testimoni, produk baharu, jualan kilat dan musim perayaan.", "includes": ["100 templat Canva: 60 post dan 40 story", "Kapsyen siap guna dalam BM dan English", "Set musim perayaan: Raya, Tahun Baru Cina, Deepavali, Krismas dan 11.11", "Boleh diedit dengan akaun Canva percuma dan fon percuma", "Kulit highlight Instagram dan panduan menukar warna jenama"], "forWho": ["Peniaga kecil di Shopee, TikTok Shop dan Instagram", "Pengurus media sosial", "Usahawan yang tiada pereka grafik"], "spec": {"Format": "Pautan templat Canva", "Bahasa": "Bahasa Melayu dan English", "Keperluan": "Akaun Canva percuma", "Penghantaran": "Pautan templat melalui emel", "Lesen": "Kegunaan perniagaan sendiri"}, "note": null, "groupLabel": "Templat & planner", "coverImg": "site/covers/canva-media-sosial.jpg", "samples": [{"img": "site/pages/canva-media-sosial-1.jpg", "label": "4 templat post"}, {"img": "site/pages/canva-media-sosial-2.jpg", "label": "Story & set perayaan"}], "market": {"currency": "USD", "mean": 17.06, "n": 11, "prices": [14.05, 19.82, 16.46, 14.0, 15.0, 15.0, 29.0, 10.28, 12.99, 5.2, 35.91], "platforms": ["Etsy", "Creative Market", "Selar", "Gumroad"]}, "priceRM": 47.9, "priceUSD": 11.89, "meanRM": 69.72, "meanUSD": 17.06, "savePct": 30}, {"slug": "resume-cv", "group": "templat", "kind": "sheet", "category": "Templat resume", "lang": ["BM", "EN"], "title": "Templat Resume & Surat Lamaran", "short": "Canva, Word dan Google Docs", "tagline": "Templat resume mesra sistem ATS dan surat lamaran padanan, dalam BM dan English, untuk graduan dan pekerja berpengalaman.", "includes": ["5 reka bentuk resume, setiap satu dalam versi 1 dan 2 halaman", "Surat lamaran dan halaman rujukan padanan", "Format Canva, Microsoft Word dan Google Docs, saiz A4", "Contoh isi BM dan English untuk 10 bidang kerja", "Panduan menulis resume yang mudah dibaca sistem ATS"], "forWho": ["Graduan baharu", "Pekerja yang mahu bertukar kerja", "Pemohon jawatan sektor awam dan swasta"], "spec": {"Format": "Canva, Word (.docx) dan Google Docs", "Bahasa": "Bahasa Melayu dan English", "Penghantaran": "Pautan dan fail melalui emel", "Lesen": "Kegunaan peribadi"}, "note": null, "groupLabel": "Templat & planner", "coverImg": "site/covers/resume-cv.jpg", "samples": [{"img": "site/pages/resume-cv-1.jpg", "label": "Resume satu halaman"}, {"img": "site/pages/resume-cv-2.jpg", "label": "Surat lamaran padanan"}], "market": {"currency": "USD", "mean": 8.89, "n": 11, "prices": [6.38, 5.72, 7.97, 8.98, 5.2, 10.89, 10.0, 5.2, 10.0, 10.0, 17.4], "platforms": ["Etsy", "Creative Market", "Skillshare"]}, "priceRM": 24.9, "priceUSD": 6.19, "meanRM": 36.33, "meanUSD": 8.89, "savePct": 30}, {"slug": "e-kad-kahwin", "group": "templat", "kind": "sheet", "category": "Templat Canva", "lang": ["BM"], "title": "E-Kad Kahwin Digital", "short": "Templat walimatulurus dengan RSVP dan peta", "tagline": "Templat e-kad walimatulurus boleh edit di Canva, dengan halaman aturcara, lokasi, RSVP dan hubungi, sedia dikongsi melalui WhatsApp. Anda edit sendiri tanpa yuran langganan.", "includes": ["Templat Canva boleh edit, 6 halaman", "Halaman muka, jemputan, aturcara, lokasi, RSVP dan hubungi", "Tarikh Masihi dan Hijrah serta ruang kod QR salam kaut", "Butang pautan ke Waze, Google Maps dan borang RSVP Google Forms", "Versi PDF dan imej untuk WhatsApp dan Instagram", "3 pilihan tema warna"], "forWho": ["Pasangan yang merancang majlis perkahwinan", "Keluarga yang mengendalikan jemputan", "Perancang majlis"], "spec": {"Format": "Templat Canva; eksport PDF dan PNG", "Bahasa": "Bahasa Melayu", "Keperluan": "Akaun Canva percuma", "Penghantaran": "Pautan templat melalui emel", "Lesen": "Satu majlis"}, "note": null, "groupLabel": "Templat & planner", "coverImg": "site/covers/e-kad-kahwin.jpg", "samples": [{"img": "site/pages/e-kad-kahwin-1.jpg", "label": "Halaman muka"}, {"img": "site/pages/e-kad-kahwin-2.jpg", "label": "Aturcara, lokasi, RSVP dan hubungi"}], "market": {"currency": "RM", "mean": 28.5, "n": 14, "prices": [29.0, 30.0, 30.0, 39.0, 8.9, 30.0, 25.0, 25.0, 27.9, 59.9, 39.9, 10.0, 20.0, 24.33], "platforms": ["laman e-kad Malaysia (EkadInvite, Sudi, SeriJemput, NakJemput dan lain-lain)", "Gumroad"]}, "priceRM": 19.9, "priceUSD": 4.79, "meanRM": 28.5, "meanUSD": 6.97, "savePct": 30}, {"slug": "lembaran-kerja-prasekolah", "group": "cetak", "kind": "print", "category": "Boleh cetak", "lang": ["BM", "EN"], "title": "Lembaran Kerja Prasekolah", "short": "Huruf, nombor, surih dan mewarna", "tagline": "Lembaran kerja boleh cetak untuk kanak-kanak 4 hingga 6 tahun: huruf, suku kata, nombor, surih garisan dan mewarna, dalam BM dan English.", "includes": ["150 halaman PDF saiz A4", "Huruf A hingga Z dan suku kata BM", "Nombor 1 hingga 20, mengira dan padanan", "Latihan surih garisan dan bentuk", "Halaman mewarna dan sijil penghargaan"], "forWho": ["Ibu bapa yang mengajar anak di rumah", "Guru tadika dan taska", "Pengusaha kelas tuisyen prasekolah"], "spec": {"Format": "PDF A4, boleh cetak berulang kali", "Bahasa": "Bahasa Melayu dan English", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Satu rumah atau satu kelas"}, "note": null, "groupLabel": "Boleh cetak & preset", "coverImg": "site/covers/lembaran-kerja-prasekolah.jpg", "samples": [{"img": "site/pages/lembaran-kerja-prasekolah-1.jpg", "label": "Surih huruf A / a"}, {"img": "site/pages/lembaran-kerja-prasekolah-2.jpg", "label": "Kira dan tulis 1–5"}], "market": {"currency": "RM", "mean": 11.42, "n": 6, "prices": [10.0, 15.0, 15.0, 13.0, 5.5, 10.0], "platforms": ["penjual Malaysia melalui toyyibPay"]}, "priceRM": 7.9, "priceUSD": 1.89, "meanRM": 11.42, "meanUSD": 2.79, "savePct": 30}, {"slug": "seni-dinding-minimalis", "group": "cetak", "kind": "print", "category": "Boleh cetak", "lang": ["BM", "EN"], "title": "Set Seni Dinding Minimalis", "short": "12 cetakan abstrak dan botani, 5 nisbah saiz", "tagline": "12 seni dinding minimalis boleh cetak, gaya abstrak dan botani, dalam 5 nisbah saiz untuk bingkai dari A5 hingga A1.", "includes": ["12 reka bentuk asli", "5 nisbah untuk setiap reka bentuk: 2:3, 3:4, 4:5, 11x14 dan saiz ISO A", "Resolusi 300 DPI", "Panduan saiz bingkai dan kedai cetak", "Fail JPG dan PDF"], "forWho": ["Pemilik rumah dan penyewa yang mahu hiasan murah", "Pemilik kafe dan pejabat kecil", "Pembeli hadiah rumah baharu"], "spec": {"Format": "JPG dan PDF, 300 DPI", "Bahasa": "Panduan dalam BM dan English", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi"}, "note": null, "groupLabel": "Boleh cetak & preset", "coverImg": "site/covers/seni-dinding-minimalis.jpg", "samples": [{"img": "site/pages/seni-dinding-minimalis-1.jpg", "label": "3 cetakan dalam bingkai"}, {"img": "site/pages/seni-dinding-minimalis-2.jpg", "label": "Satu cetakan A4 & panduan nisbah"}], "market": {"currency": "USD", "mean": 9.71, "n": 10, "prices": [6.75, 10.82, 10.8, 12.4, 5.99, 6.58, 18.83, 12.0, 9.97, 2.99], "platforms": ["Etsy", "Gumroad"]}, "priceRM": 26.9, "priceUSD": 6.79, "meanRM": 39.68, "meanUSD": 9.71, "savePct": 30}, {"slug": "lightroom-presets-tropika", "group": "cetak", "kind": "preset", "category": "Preset Lightroom", "lang": ["EN", "BM"], "title": "Lightroom Presets Tropika", "short": "20 preset untuk telefon dan desktop", "tagline": "20 preset Lightroom bertona hangat tropika untuk foto pantai, kafe, makanan dan potret, untuk Lightroom Mobile dan desktop.", "includes": ["20 preset: DNG untuk telefon dan XMP untuk desktop", "Sesuai untuk foto pantai, kafe, makanan dan potret", "Panduan pemasangan dalam BM dan English", "Video pendek cara melaraskan pencahayaan"], "forWho": ["Pencipta kandungan dan influencer", "Peniaga yang mengambil foto produk sendiri", "Peminat fotografi telefon"], "spec": {"Format": "DNG dan XMP", "Bahasa": "Panduan dalam BM dan English", "Keperluan": "Adobe Lightroom Mobile (percuma) atau Lightroom Classic", "Penghantaran": "Pautan muat turun melalui emel", "Lesen": "Kegunaan peribadi dan komersial sendiri"}, "note": null, "groupLabel": "Boleh cetak & preset", "coverImg": "site/covers/lightroom-presets-tropika.jpg", "samples": [{"img": "site/pages/lightroom-presets-tropika-1.jpg", "label": "Sebelum dan selepas"}, {"img": "site/pages/lightroom-presets-tropika-2.jpg", "label": "6 contoh preset"}], "market": {"currency": "USD", "mean": 10.69, "n": 10, "prices": [9.0, 2.81, 9.0, 9.0, 18.0, 10.0, 12.0, 16.94, 12.0, 8.11], "platforms": ["Etsy", "Creative Market", "MasterBundles", "Gumroad", "Payhip", "SparkleStock"]}, "priceRM": 29.9, "priceUSD": 7.39, "meanRM": 43.69, "meanUSD": 10.69, "savePct": 30}, {"slug": "templat-peniaga-online", "group": "templat", "kind": "sheet", "category": "Templat Google Sheets", "lang": ["BM", "EN"], "title": "Templat Invois, Stok & Untung Rugi", "coverTitle": "Templat Peniaga Online", "short": "Google Sheets untuk peniaga online", "tagline": "Templat Google Sheets dan Excel untuk peniaga online: invois, stok, pesanan, perbelanjaan dan penyata untung rugi bulanan secara automatik.", "includes": ["Templat Google Sheets dan Excel", "Penjana invois dengan logo anda", "Penjejak stok dengan amaran stok rendah", "Rekod jualan mengikut platform: Shopee, TikTok Shop, Lazada dan WhatsApp", "Kalkulator yuran platform dan untung bersih setiap pesanan", "Penyata untung rugi bulanan dan tahunan automatik"], "forWho": ["Peniaga Shopee, TikTok Shop dan Lazada", "Peniaga WhatsApp dan Instagram", "Pemilik perniagaan kecil tanpa sistem perakaunan"], "spec": {"Format": "Google Sheets dan Microsoft Excel", "Bahasa": "Bahasa Melayu dan English", "Keperluan": "Akaun Google percuma atau Excel", "Penghantaran": "Pautan salinan dan fail melalui emel", "Lesen": "Kegunaan perniagaan sendiri"}, "note": null, "groupLabel": "Templat & planner", "coverImg": "site/covers/templat-peniaga-online.jpg", "samples": [{"img": "site/pages/templat-peniaga-online-1.jpg", "label": "Penjana invois"}, {"img": "site/pages/templat-peniaga-online-2.jpg", "label": "Papan pemuka untung rugi"}], "market": {"currency": "USD", "mean": 14.76, "n": 10, "prices": [4.99, 6.97, 29.39, 9.92, 3.48, 19.99, 19.0, 13.5, 10.99, 29.37], "platforms": ["Etsy", "Gumroad", "Payhip"]}, "priceRM": 41.9, "priceUSD": 10.29, "meanRM": 60.32, "meanUSD": 14.76, "savePct": 30}]};
+const P = DATA.products;
+const PAY = DATA.payments;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = (v, cur) => cur === "USD" ? "USD " + v.toFixed(2) : "RM" + v.toFixed(2);
+
+let region = null;
+try { region = localStorage.getItem("bh-region"); } catch (e) {}
+if (region !== "MY" && region !== "INTL") {
+  let tz = "";
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+  region = /Kuala_Lumpur|Kuching/.test(tz) ? "MY" : "INTL";
+}
+const cur = () => region === "MY" ? "RM" : "USD";
+const priceOf = p => region === "MY" ? p.priceRM : p.priceUSD;
+const wasOf = p => region === "MY" ? p.meanRM : p.meanUSD;
+
+function syncRegionButtons() {
+  for (const b of document.querySelectorAll("[data-region]")) b.setAttribute("aria-pressed", String(b.dataset.region === region));
+}
+function setRegion(r) {
+  region = r;
+  try { localStorage.setItem("bh-region", r); } catch (e) {}
+  syncRegionButtons();
+  render(false);
+}
+
+function cardHTML(p) {
+  return `<a class="card" href="#${p.slug}">
+    <div class="cv"><img src="${p.coverImg}" alt="Kulit ${esc(p.title)}" loading="lazy" width="600" height="800"></div>
+    <div class="meta">${esc(p.category)} · ${p.lang.join(" + ")}</div>
+    <h3>${esc(p.title)}</h3>
+    <p class="sub">${esc(p.short)}</p>
+    <div class="pricerow num"><span class="now">${money(priceOf(p), cur())}</span><span class="was">${money(wasOf(p), cur())}</span><span class="save">Jimat ${p.savePct}%</span></div>
+  </a>`;
+}
+
+const FILTERS = [
+  { id: "semua", label: "Semua", test: () => true },
+  { id: "ebook", label: "Ebook", test: p => p.group === "ebook" },
+  { id: "templat", label: "Templat & planner", test: p => p.group === "templat" },
+  { id: "cetak", label: "Boleh cetak & preset", test: p => p.group === "cetak" },
+  { id: "bm", label: "Bahasa Melayu", test: p => p.lang.includes("BM") },
+  { id: "en", label: "English", test: p => p.lang.includes("EN") },
+];
+let activeFilter = "semua";
+try { activeFilter = localStorage.getItem("bh-filter") || "semua"; } catch (e) {}
+if (!FILTERS.some(f => f.id === activeFilter)) activeFilter = "semua";
+
+function homeHTML() {
+  const f = FILTERS.find(x => x.id === activeFilter);
+  const list = P.filter(f.test);
+  const fan = ["ai-kerja-harian", "resepi-jualan", "templat-bajet"].map(s => P.find(p => p.slug === s)).filter(Boolean);
+  const pay = PAY[region];
+  return `
+  <section class="hero"><div class="wrap">
+    <div>
+      <div class="eyebrow">Produk digital asli · Malaysia &amp; global</div>
+      <h1>Ebook dan templat yang dicari ramai, <span>sekurang-kurangnya 30% lebih murah</span>.</h1>
+      <p class="lead">Kami semak harga produk setanding yang sedang dijual di Etsy, Gumroad dan kedai Malaysia, kemudian letak harga BuanaHub sekurang-kurangnya 30% di bawah purata. Setiap halaman produk menunjukkan perbandingan dan contoh halaman sebenar.</p>
+      <div class="cta"><a class="btn primary" href="#katalog">Lihat ${P.length} produk</a><a class="btn ghost" href="#cara-harga">Cara harga ditetapkan</a></div>
+    </div>
+    <div class="fan" aria-hidden="true">${fan.map(p => `<a href="#${p.slug}" tabindex="-1"><img src="${p.coverImg}" alt="" width="600" height="800"></a>`).join("")}</div>
+  </div></section>
+  <section class="trust"><div class="wrap">
+    <div><b>${esc(pay.headline)}</b><span>${esc(pay.sub)}</span></div>
+    <div><b>Muat turun segera</b><span>Pautan dihantar ke emel sebaik bayaran berjaya</span></div>
+    <div><b>Contoh halaman sebenar</b><span>Lihat 2 halaman setiap produk sebelum membeli</span></div>
+    <div><b>Harga telus</b><span>Dibandingkan dengan purata pasaran semasa</span></div>
+  </div></section>
+
+  <section id="katalog"><div class="wrap">
+    <div class="section-head">
+      <div><h2>Katalog</h2><p>Harga dalam ${region === "MY" ? "Ringgit Malaysia" : "Dolar AS"}. Tukar di bahagian atas.</p></div>
+      <div class="filters" role="group" aria-label="Tapis produk">
+        ${FILTERS.map(x => `<button type="button" class="chipbtn" id="f-${x.id}" data-f="${x.id}" aria-pressed="${x.id === activeFilter}">${x.label}<span class="n">${P.filter(x.test).length}</span></button>`).join("")}
+      </div>
+    </div>
+    <div class="grid">${list.map(cardHTML).join("")}</div>
+  </div></section>
+
+  <section class="band" id="cara-harga"><div class="wrap">
+    <div>
+      <h2>Harga yang boleh disemak</h2>
+      <p>Untuk setiap produk, kami kumpul sekurang-kurangnya 5 produk setanding yang sedang dijual pada ${esc(DATA.checked)}, kira purata harganya, kemudian tolak 30% dan bundarkan ke bawah.</p>
+      <div class="formula"><span>Purata pasaran</span><span>× 0.70</span><b>= harga BuanaHub</b></div>
+      <p>Harga dalam mata wang kedua ditukar pada kadar USD 1 = RM${DATA.usdToMyr.toFixed(3)} dan juga dibundarkan ke bawah, jadi penjimatan sekurang-kurangnya 30% kekal dalam kedua-dua mata wang.</p>
+    </div>
+    <div id="bantuan">
+      <h2>Bantuan</h2>
+      <details><summary>Bagaimana saya terima produk?</summary><p>Selepas bayaran berjaya, pautan muat turun dihantar ke emel anda serta-merta. Pautan aktif selama 7 hari dan boleh dimuat turun 5 kali.</p></details>
+      <details><summary>Kaedah bayaran apa yang diterima?</summary><p>${esc(PAY.MY.faq)} ${esc(PAY.INTL.faq)}</p></details>
+      <details><summary>Boleh minta bayaran balik?</summary><p>Jika fail rosak atau tidak boleh dibuka, kami hantar semula atau pulangkan wang dalam 14 hari. Produk digital yang sudah dimuat turun dengan baik tidak boleh dipulangkan.</p></details>
+      <details><summary>Boleh saya jual semula produk ini?</summary><p>Tidak. Lesen adalah untuk kegunaan peribadi atau perniagaan anda sendiri. Templat boleh digunakan untuk kerja pelanggan anda, tetapi fail asal tidak boleh dikongsi atau dijual semula.</p></details>
+    </div>
+  </div></section>`;
+}
+
+function stripHTML(p) {
+  const m = p.market, c = m.currency === "USD" ? "USD" : "RM";
+  const ours = c === "USD" ? p.priceUSD : p.priceRM;
+  const hi = Math.max(...m.prices, m.mean) * 1.08;
+  const X = v => (v / hi * 100).toFixed(2) + "%";
+  const edge = v => { const f = v / hi; return f < 0.18 ? " al" : f > 0.82 ? " ar" : ""; };
+  const dots = m.prices.map(v => `<span class="dot" style="left:${X(v)}" title="${money(v, c)}"></span>`).join("");
+  return `<div class="strip num" role="img" aria-label="Harga ${m.n} produk setanding dari ${money(Math.min(...m.prices), c)} hingga ${money(Math.max(...m.prices), c)}; purata ${money(m.mean, c)}; BuanaHub ${money(ours, c)}">
+      <div class="axis"></div>${dots}
+      <span class="mk mean" style="left:${X(m.mean)}"></span>
+      <span class="lab mean${edge(m.mean)}" style="left:${X(m.mean)}">Purata ${money(m.mean, c)}</span>
+      <span class="mk ours" style="left:${X(ours)}"></span>
+      <span class="lab ours${edge(ours)}" style="left:${X(ours)}">BuanaHub ${money(ours, c)}</span>
+      <span class="tick l" style="left:0">0</span>
+      <span class="tick r" style="left:100%">${money(hi, c).replace(/\.\d+$/, "")}</span>
+    </div>
+    <div class="legend"><span><i></i>Produk setanding (${m.n})</span><span><i class="m"></i>Purata pasaran</span><span><i class="o"></i>Harga BuanaHub</span></div>`;
+}
+
+function buyHTML(p) {
+  const pay = PAY[region];
+  return `<div class="seg" role="group" aria-label="Lokasi pembeli">
+      <button type="button" data-region="MY" aria-pressed="${region === "MY"}">Di Malaysia · RM</button>
+      <button type="button" data-region="INTL" aria-pressed="${region === "INTL"}">Luar negara · USD</button>
+    </div>
+    <div class="big num"><span class="now">${money(priceOf(p), cur())}</span><span class="was">${money(wasOf(p), cur())}</span><span class="save">Jimat ${p.savePct}%</span></div>
+    <div class="methods"><span class="lbl">${esc(pay.label)}</span><ul>${pay.methods.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
+    ${p.custom ? `<button type="button" class="btn primary" data-goto="bina">Bina komik anda · ${money(priceOf(p), cur())}</button>`
+      : `<button type="button" class="btn primary" id="buy-${p.slug}" data-buy="${p.slug}">Beli sekarang · ${money(priceOf(p), cur())}</button>
+    <p class="alert" id="notice-${p.slug}" hidden>Pembelian belum dibuka. Kedai BuanaHub akan dibuka tidak lama lagi.</p>`}
+    <p class="fine">${p.custom ? "Komik dihantar ke emel dalam 1 hingga 3 hari bekerja." : "Pautan muat turun dihantar ke emel serta-merta."} ${esc(pay.fine)}</p>`;
+}
+
+function builderHTML(p) {
+  const c = p.custom;
+  return `
+  <section class="builder" id="bina"><div class="wrap">
+    <h2>Bina komik anda</h2>
+    <p class="lead">Lima langkah, kira-kira 3 minit. Selepas pembayaran, kami lukis komik dan menghantarnya ke emel anda dalam 1 hingga 3 hari bekerja.</p>
+    <form class="bform" id="cform" novalidate>
+      <div class="step"><h3><b>1</b>Gambar wajah hero</h3>
+        <p class="hint">Satu gambar sahaja. Gambar ini menjadi rujukan wajah untuk setiap panel.</p>
+        <div class="photo"><div class="pv" id="pv">Tiada gambar lagi</div>
+          <div><label class="btn ghost file-btn">Pilih gambar<input type="file" id="cf-photo" accept="image/jpeg,image/png" aria-label="Pilih gambar wajah"></label>
+          <ul><li>Wajah menghadap kamera dan jelas, cahaya terang</li><li>Seorang sahaja dalam gambar, tanpa cermin mata gelap</li><li>JPG atau PNG, sehingga 10 MB</li></ul></div></div>
+      </div>
+      <div class="step"><h3><b>2</b>Pilih cerita</h3>
+        <p class="hint">Semua cerita sesuai untuk semua umur: aksi tanpa keganasan grafik, penjahat ditangkap, bukan dicederakan.</p>
+        <div class="stories" role="radiogroup" aria-label="Pilih cerita">${c.stories.map((st, i) => `
+          <label class="story"><input type="radio" name="cerita" value="${st.id}"${i === 0 ? " checked" : ""}>
+            <img src="${st.img}" alt="Kulit contoh ${esc(st.title)}" loading="lazy" width="300" height="400">
+            <span class="t"><em>${esc(st.power)}</em><strong>${esc(st.title)}</strong><small>${esc(st.blurb)}</small></span></label>`).join("")}
+        </div>
+      </div>
+      <div class="step"><h3><b>3</b>Nama dan bahasa</h3>
+        <div class="grid2">
+          <label class="fld">Nama dalam cerita<input type="text" id="cf-nama" maxlength="20" placeholder="cth. Aina" autocomplete="off"></label>
+          <label class="fld">Nama hero<input type="text" id="cf-hero" maxlength="24" placeholder="cth. Srikandi Kilat" autocomplete="off"></label>
+        </div>
+        <div class="opts" role="radiogroup" aria-label="Bahasa komik">
+          <label class="opt"><input type="radio" name="bahasa" value="BM" checked><span>Bahasa Melayu</span></label>
+          <label class="opt"><input type="radio" name="bahasa" value="EN"><span>English</span></label>
+        </div>
+      </div>
+      <div class="step"><h3><b>4</b>Warna sut hero</h3>
+        <div class="opts" role="radiogroup" aria-label="Warna sut">${c.colours.map((k, i) => `<label class="opt"><input type="radio" name="warna" value="${esc(k.name)}"${i === 0 ? " checked" : ""}><span><i style="background:${k.hex2 ? `linear-gradient(135deg, ${k.hex} 55%, ${k.hex2} 55%)` : k.hex}"></i>${esc(k.name)}</span></label>`).join("")}</div>
+      </div>
+      <div class="step"><h3><b>5</b>Ucapan dedikasi <span style="font-weight:500;color:var(--muted);font-size:14px">(pilihan)</span></h3>
+        <p class="hint">Dicetak pada halaman Fail Hero, selepas kulit depan.</p>
+        <div class="grid2">
+          <label class="fld">Untuk<input type="text" id="cf-untuk" maxlength="30" placeholder="cth. Aina" autocomplete="off"></label>
+          <label class="fld">Daripada<input type="text" id="cf-dari" maxlength="40" placeholder="cth. Mak dan Abah" autocomplete="off"></label>
+        </div>
+        <label class="fld" style="margin-top:14px">Ucapan<textarea id="cf-ucapan" maxlength="300" placeholder="cth. Selamat hari lahir! Teruslah berani dan menolong orang."></textarea><span class="cnt" id="cf-cnt">0 / 300</span></label>
+      </div>
+      <div class="step"><h3><b>✓</b>Semak dan hantar</h3>
+        <div class="grid2"><label class="fld">Emel untuk penghantaran komik<input type="email" id="cf-emel" placeholder="nama@contoh.com" autocomplete="email"></label></div>
+        <div class="consent">
+          <label><input type="checkbox" id="cf-izin"><span>Gambar ini ialah gambar saya, anak di bawah jagaan saya, atau orang yang telah memberi izin kepada saya. Ia bukan gambar selebriti atau tokoh awam.</span></label>
+          <label><input type="checkbox" id="cf-pdpa"><span>Saya bersetuju gambar ini digunakan hanya untuk menghasilkan komik saya, diproses dengan alat AI, dan dipadam dalam masa 30 hari selepas komik dihantar.</span></label>
+        </div>
+        <div class="summary" style="margin-top:16px"><p class="sum" id="cf-sum"></p>
+          <button type="submit" class="btn primary">Teruskan ke pembayaran · ${money(priceOf(p), cur())}</button>
+          <p class="alert" id="cf-msg" hidden></p></div>
+      </div>
+    </form>
+  </div></section>`;
+}
+
+function productHTML(p) {
+  const related = P.filter(x => x.slug !== p.slug && x.group === p.group).slice(0, 4);
+  const views = [{ src: p.coverImg, cap: "Kulit" }, ...p.samples.map((s, i) => ({ src: s.img, cap: `Contoh halaman ${i + 1}: ${s.label}` }))];
+  return `
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Laluan"><a href="#katalog">Katalog</a><span>/</span><span>${esc(p.category)}</span><span>/</span><span aria-current="page">${esc(p.title)}</span></nav>
+    <article class="pp">
+      <div class="gallery" data-views='${esc(JSON.stringify(views))}'>
+        <div class="main"><button type="button" data-zoom="0" aria-label="Besarkan kulit"><img src="${p.coverImg}" alt="Kulit ${esc(p.title)}" width="600" height="800"></button></div>
+        <div class="thumbs">${views.map((v, i) => `<button type="button" data-zoom="${i}" aria-label="${esc(v.cap)}"${i === 0 ? ' aria-current="true"' : ""}><img src="${v.src}" alt="" loading="lazy"></button>`).join("")}</div>
+      </div>
+      <div>
+        <div class="tags"><span class="tag">${esc(p.category)}</span>${p.lang.map(l => `<span class="tag">${l === "BM" ? "Bahasa Melayu" : "English"}</span>`).join("")}<span class="tag status">Dalam penghasilan</span></div>
+        <h1>${esc(p.title)}</h1>
+        <p class="tagline">${esc(p.tagline)}</p>
+        <div class="buy" id="buybox">${buyHTML(p)}</div>
+        <div class="sections">
+          <section><h2>Apa yang anda dapat</h2><ul class="ticks">${p.includes.map(i => `<li><span>${esc(i)}</span></li>`).join("")}</ul></section>
+          <section><h2>Sesuai untuk</h2><ul class="ticks">${p.forWho.map(i => `<li><span>${esc(i)}</span></li>`).join("")}</ul></section>
+          <section><h2>Butiran</h2><table class="spec"><tbody>${Object.entries(p.spec).map(([k, v]) => `<tr><th scope="row">${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</tbody></table></section>
+          <section><h2>Perbandingan harga pasaran</h2>${stripHTML(p)}
+            <p class="srcs">Berdasarkan ${p.market.n} produk setanding di ${esc(p.market.platforms.join(", "))}, disemak ${esc(DATA.checked)}. Julat ${money(Math.min(...p.market.prices), p.market.currency === "USD" ? "USD" : "RM")} hingga ${money(Math.max(...p.market.prices), p.market.currency === "USD" ? "USD" : "RM")}.</p>
+          </section>
+          ${p.note ? `<p class="note">${esc(p.note)}</p>` : ""}
+        </div>
+      </div>
+    </article>
+  </div>
+  ${p.custom ? builderHTML(p) : ""}
+  <section class="samples"><div class="wrap">
+    <h2>Contoh halaman</h2>
+    <p>Dua halaman daripada produk ini. Klik untuk paparan besar.</p>
+    <div class="sample-row">${p.samples.map((s, i) => `<figure class="sample" style="margin:0"><button type="button" data-zoom="${i + 1}" aria-label="Besarkan contoh halaman ${i + 1}"><img src="${s.img}" alt="Contoh halaman ${i + 1}: ${esc(s.label)}" loading="lazy" width="794" height="1123"></button><figcaption class="cap">Halaman ${i + 1} <span>· ${esc(s.label)}</span></figcaption></figure>`).join("")}</div>
+  </div></section>
+  <section class="related"><div class="wrap">
+    <h2>Produk lain dalam ${esc(p.groupLabel)}</h2>
+    <div class="grid">${related.map(cardHTML).join("")}</div>
+  </div></section>`;
+}
+
+/* Lightbox */
+const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img"), lbCap = document.getElementById("lb-cap");
+let lbViews = [], lbIdx = 0, lbReturn = null;
+function lbShow(i) { lbIdx = (i + lbViews.length) % lbViews.length; lbImg.src = lbViews[lbIdx].src; lbImg.alt = lbViews[lbIdx].cap; lbCap.textContent = lbViews[lbIdx].cap; }
+function lbOpen(views, i, from) { lbViews = views; lbReturn = from; lbShow(i); lb.hidden = false; document.getElementById("lb-close").focus(); }
+function lbClose() { lb.hidden = true; if (lbReturn) lbReturn.focus(); }
+document.getElementById("lb-close").addEventListener("click", lbClose);
+document.getElementById("lb-prev").addEventListener("click", () => lbShow(lbIdx - 1));
+document.getElementById("lb-next").addEventListener("click", () => lbShow(lbIdx + 1));
+lb.addEventListener("click", e => { if (e.target === lb || e.target.classList.contains("stage")) lbClose(); });
+document.addEventListener("keydown", e => {
+  if (lb.hidden) return;
+  if (e.key === "Escape") lbClose();
+  if (e.key === "ArrowLeft") lbShow(lbIdx - 1);
+  if (e.key === "ArrowRight") lbShow(lbIdx + 1);
+});
+
+const app = document.getElementById("app");
+let current = null;
+function render(scrollTop) {
+  const h = decodeURIComponent(location.hash.replace(/^#/, ""));
+  const p = P.find(x => x.slug === h);
+  if (p) {
+    const y = window.scrollY;
+    app.innerHTML = productHTML(p);
+    document.title = p.title + " · BuanaHub";
+    window.scrollTo(0, scrollTop ? 0 : y);
+    current = p.slug;
+    builderSum();
+  } else {
+    const y = window.scrollY;
+    app.innerHTML = homeHTML();
+    document.title = "BuanaHub";
+    const el = h && document.getElementById(h);
+    if (scrollTop) { if (el) el.scrollIntoView(); else window.scrollTo(0, 0); } else window.scrollTo(0, y);
+    current = "home";
+  }
+}
+document.addEventListener("click", e => {
+  const r = e.target.closest("[data-region]");
+  if (r) { setRegion(r.dataset.region); return; }
+  const f = e.target.closest("[data-f]");
+  if (f) {
+    activeFilter = f.dataset.f;
+    try { localStorage.setItem("bh-filter", activeFilter); } catch (err) {}
+    render(false);
+    return;
+  }
+  const z = e.target.closest("[data-zoom]");
+  if (z) {
+    const g = document.querySelector(".gallery");
+    if (g) lbOpen(JSON.parse(g.dataset.views), Number(z.dataset.zoom), z);
+    return;
+  }
+  const g2 = e.target.closest("[data-goto]");
+  if (g2) { const t = document.getElementById(g2.dataset.goto); if (t) t.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+  const b = e.target.closest("[data-buy]");
+  if (b) { const n = document.getElementById("notice-" + b.dataset.buy); if (n) n.hidden = false; }
+});
+function builderSum() {
+  const f = document.getElementById("cform"); if (!f) return;
+  const p = P.find(x => x.slug === current); if (!p || !p.custom) return;
+  const st = p.custom.stories.find(s => s.id === (f.querySelector("[name=cerita]:checked") || {}).value);
+  const nama = document.getElementById("cf-nama").value.trim(), hero = document.getElementById("cf-hero").value.trim();
+  document.getElementById("cf-sum").innerHTML = `Cerita: <b>${esc(st ? st.title : "-")}</b> · Bahasa: <b>${esc((f.querySelector("[name=bahasa]:checked") || {}).value || "-")}</b> · Sut: <b>${esc((f.querySelector("[name=warna]:checked") || {}).value || "-")}</b>${nama ? ` · Nama: <b>${esc(nama)}</b>` : ""}${hero ? ` · Hero: <b>${esc(hero)}</b>` : ""}`;
+  const u = document.getElementById("cf-ucapan"); document.getElementById("cf-cnt").textContent = u.value.length + " / 300";
+}
+document.addEventListener("input", e => { if (e.target.closest("#cform")) builderSum(); });
+document.addEventListener("change", e => {
+  if (e.target.id === "cf-photo") {
+    const file = e.target.files && e.target.files[0], pv = document.getElementById("pv");
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { pv.textContent = "Fail melebihi 10 MB. Sila pilih gambar lain."; e.target.value = ""; return; }
+    const r = new FileReader();
+    r.onload = () => { pv.innerHTML = ""; const im = new Image(); im.alt = "Pratonton gambar wajah"; im.src = r.result; pv.appendChild(im); };
+    r.readAsDataURL(file);
+  }
+  if (e.target.closest("#cform")) builderSum();
+});
+document.addEventListener("submit", e => {
+  if (e.target.id !== "cform") return;
+  e.preventDefault();
+  const miss = [];
+  if (!document.getElementById("cf-photo").files.length) miss.push("gambar wajah");
+  if (!document.getElementById("cf-nama").value.trim()) miss.push("nama dalam cerita");
+  if (!document.getElementById("cf-hero").value.trim()) miss.push("nama hero");
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(document.getElementById("cf-emel").value.trim())) miss.push("emel yang sah");
+  if (!document.getElementById("cf-izin").checked || !document.getElementById("cf-pdpa").checked) miss.push("kedua-dua pengesahan");
+  const m = document.getElementById("cf-msg"); m.hidden = false;
+  m.textContent = miss.length ? "Sila lengkapkan: " + miss.join(", ") + "." : "Pratonton: tempahan dan pembayaran belum dibuka. Gambar anda tidak dimuat naik ke mana-mana dalam pratonton ini.";
+});
+window.addEventListener("hashchange", () => render(true));
+syncRegionButtons();
+render(true);
+</script>
