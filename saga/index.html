@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" data-l="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saga Hero: a monthly comic starring you | BuanaHub</title>
+<meta name="description" content="A new 20-page 3D comic every month with your face as the hero. In English or Bahasa Melayu, from BuanaHub.">
+<link rel="canonical" href="https://buanahub.com/saga/">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+html[data-l=en] .ms,html[data-l=ms] .en{display:none}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+.lang{display:inline-flex;border:1px solid currentColor;border-radius:999px;overflow:hidden;font-size:14px}
+.lang button{font:inherit;color:inherit;background:none;border:0;padding:6px 13px;cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+details{border-top:1px solid var(--rule);padding:16px 0}
+details:last-child{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;font-weight:650;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:400}
+details[open] summary::after{content:"\2212"}
+details p{margin-top:10px;max-width:68ch}
+
+@font-face{font-family:Archivo;src:url(/l/f/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+:root{--bg:#121036;--bg2:#1b1850;--ink:#f3f1ff;--mute:#b4b0e0;--sun:#ffd23a;--bolt:#49b6ff;--rule:rgba(243,241,255,.2);--focus:#ffd23a}
+body{font-family:Archivo,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.55}
+.cond{font-stretch:62%;font-weight:800;line-height:.9;letter-spacing:.005em;text-transform:uppercase}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+header.top a{font-weight:700;text-decoration:none}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;padding:28px 0 72px}
+.hero h1{font-size:clamp(64px,11vw,148px);color:var(--sun)}
+.hero h1 small{display:block;font-size:max(.36em,27px);color:var(--ink);margin-top:.12em}
+.hero p.lede{font-size:21px;max-width:34ch;margin-top:26px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:30px}
+.btn{display:inline-block;background:var(--sun);color:#121036;font-weight:750;text-decoration:none;padding:14px 22px;border-radius:6px;font-size:17px}
+.status{font-size:15px;color:var(--mute)}
+.rack{position:relative;aspect-ratio:1/.95;min-height:340px}
+.rack figure{position:absolute;width:44%;aspect-ratio:3/4;border-radius:5px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.55);background:#000}
+.rack figure img{width:100%;height:100%;object-fit:cover}
+.rack figcaption{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:7% 8%;background:linear-gradient(to bottom,rgba(8,6,40,.82),rgba(8,6,40,0) 34%,rgba(8,6,40,0) 66%,rgba(8,6,40,.86))}
+.rack .mast{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(11px,1.5vw,17px);color:var(--sun)}
+.rack .ttl{font-size:clamp(16px,2.5vw,30px);color:#fff}
+.rack figure:nth-child(1){left:0;top:22%;transform:rotate(-9deg)}
+.rack figure:nth-child(2){left:16%;top:10%;transform:rotate(-4deg)}
+.rack figure:nth-child(3){left:54%;top:14%;transform:rotate(7deg)}
+.rack figure:nth-child(4){left:40%;top:4%;transform:rotate(3deg)}
+.rack figure:nth-child(5){left:27%;top:24%;width:48%;transform:rotate(-1deg);z-index:2}
+.rack figure:not(:nth-child(5)) .ttl{display:none}
+.you{display:flex;align-items:center;gap:12px;font-size:14.5px;color:var(--mute);max-width:44ch;margin:6px auto 0}
+.you img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--sun);flex:none}
+section{padding:72px 0}
+section.alt{background:var(--bg2)}
+h2{font-size:clamp(40px,6vw,76px);margin-bottom:10px}
+.sub{color:var(--mute);max-width:60ch;margin-bottom:36px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;counter-reset:s}
+.steps li{list-style:none;counter-increment:s;border-top:3px solid var(--sun);padding-top:16px}
+.steps li::before{content:counter(s);font-stretch:62%;font-weight:800;font-size:54px;line-height:1;color:var(--sun);display:block}
+.steps h3{font-size:21px;margin:8px 0 6px}
+.wall{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 18px}
+.iss{display:grid;gap:10px;align-content:start}
+.iss .cv{aspect-ratio:3/4;border-radius:5px;overflow:hidden;position:relative;background:linear-gradient(160deg,#2a2670,#17144a)}
+.iss .cv img{width:100%;height:100%;object-fit:cover}
+.iss .cv .no{position:absolute;left:10px;top:8px;font-size:15px;color:var(--sun);text-shadow:0 2px 6px rgba(0,0,0,.8)}
+.iss .cv.locked{display:grid;place-items:center}
+.iss .cv.locked b{font-size:clamp(70px,9vw,120px);color:rgba(243,241,255,.16)}
+.iss h3{font-size:18px;line-height:1.25}
+.iss p{font-size:14.5px;color:var(--mute);line-height:1.45}
+.map{display:grid;grid-template-columns:repeat(20,1fr);gap:4px;margin:8px 0 14px}
+.map i{aspect-ratio:3/4;border-radius:2px;background:var(--bolt)}
+.map i.c{background:var(--sun)}.map i.r{background:#fff}.map i.h{background:#b98cff}.map i.t{background:#ff8a5c}
+.key{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14.5px;color:var(--mute);margin-bottom:38px}
+.key>span::before{content:"";display:inline-block;width:11px;height:14px;border-radius:2px;margin-right:8px;vertical-align:-2px;background:var(--k)}
+.pagesrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.pagesrow figure{border-radius:5px;overflow:hidden;background:#000}
+.pagesrow figcaption{font-size:14px;color:var(--mute);padding:10px 2px 0;background:var(--bg2)}
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:860px}
+.plan{border:2px solid var(--rule);border-radius:8px;padding:26px}
+.plan.best{border-color:var(--sun)}
+.plan h3{font-size:20px}
+.plan .pr{font-size:64px;color:var(--sun);margin:12px 0 2px}
+.plan .per{color:var(--mute);font-size:15px}
+.plan ul{margin:18px 0 0 18px;display:grid;gap:7px;font-size:16px}
+.note{font-size:14.5px;color:var(--mute);max-width:70ch;margin-top:26px}
+footer{padding:44px 0 60px;font-size:14.5px;color:var(--mute);border-top:1px solid var(--rule)}
+footer p{max-width:76ch;margin-bottom:8px}
+@media (max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.rackwrap{order:-1;max-width:520px}.steps{grid-template-columns:minmax(0,1fr)}.wall{grid-template-columns:repeat(2,minmax(0,1fr))}.pagesrow{grid-template-columns:minmax(0,1fr);max-width:420px}.plans{grid-template-columns:minmax(0,1fr)}section{padding:52px 0}}
+</style>
+<script>
+(function(){var d=document.documentElement,k='bh-lang',s=null;try{s=localStorage.getItem(k)}catch(e){}
+function set(l){d.setAttribute('data-l',l);d.lang=l;document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l)});try{localStorage.setItem(k,l)}catch(e){}}
+document.addEventListener('DOMContentLoaded',function(){set(s||((navigator.language||'en').toLowerCase().indexOf('ms')===0?'ms':'en'));
+document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})})});})();
+</script>
+</head>
+<body>
+
+<div class="wrap">
+<header class="top"><a href="/">BuanaHub</a><div class="lang" role="group" aria-label="Language"><button type="button" data-l="en">English</button><button type="button" data-l="ms">Bahasa Melayu</button></div></header>
+<div class="hero">
+  <div>
+    <h1 class="cond">Saga Hero<small><span class="en">A new issue every month, starring you</span><span class="ms">Isu baharu setiap bulan, dibintangi anda</span></small></h1>
+    <p class="lede"><span class="en">Send one photo. Each month you receive a 20-page comic in 3D animated-film style where the hero has your face, and the story picks up where the last issue stopped.</span><span class="ms">Hantar satu gambar. Setiap bulan anda terima komik 20 halaman bergaya filem animasi 3D dengan wajah anda sebagai hero, dan cerita bersambung dari isu sebelumnya.</span></p>
+    <div class="cta"><a class="btn" href="#pelan"><span class="en">See the plans</span><span class="ms">Lihat pelan</span></a><span class="status"><span class="en">Subscriptions are not open yet.</span><span class="ms">Langganan belum dibuka.</span></span></div>
+  </div>
+  <div class="rackwrap"><div class="rack"><figure><img src="/l/saga/isu08.jpg" alt="" width="720" height="956"><figcaption><div class="mast cond"><span>Saga Hero</span><span><span class="en">No.</span><span class="ms">Isu</span> 08</span></div><div class="ttl cond"><span class="en">Race to the Summit</span><span class="ms">Perlumbaan ke Puncak</span></div></figcaption></figure><figure><img src="/l/saga/isu04.jpg" alt="" width="720" height="956"><figcaption><div class="mast cond"><span>Saga Hero</span><span><span class="en">No.</span><span class="ms">Isu</span> 04</span></div><div class="ttl cond"><span class="en">The City Beneath the Sea</span><span class="ms">Kota di Bawah Laut</span></div></figcaption></figure><figure><img src="/l/saga/isu06.jpg" alt="" width="720" height="956"><figcaption><div class="mast cond"><span>Saga Hero</span><span><span class="en">No.</span><span class="ms">Isu</span> 06</span></div><div class="ttl cond"><span class="en">The Twin Mask</span><span class="ms">Topeng Kembar</span></div></figcaption></figure><figure><img src="/l/saga/isu03.jpg" alt="" width="720" height="956"><figcaption><div class="mast cond"><span>Saga Hero</span><span><span class="en">No.</span><span class="ms">Isu</span> 03</span></div><div class="ttl cond"><span class="en">The Time Thief</span><span class="ms">Pencuri Masa</span></div></figcaption></figure><figure><img src="/l/saga/isu01.jpg" alt="" width="720" height="956"><figcaption><div class="mast cond"><span>Saga Hero</span><span><span class="en">No.</span><span class="ms">Isu</span> 01</span></div><div class="ttl cond"><span class="en">The Hero Is Born</span><span class="ms">Kelahiran Hero</span></div></figcaption></figure></div>
+    <div class="you"><img src="/l/saga/foto.jpg" alt="" width="92" height="92"><span><span class="en">The hero on these covers was made from this one photo (a sample face, not a real customer).</span><span class="ms">Hero pada kulit ini dihasilkan daripada satu gambar ini (wajah contoh, bukan pelanggan sebenar).</span></span></div>
+  </div>
+</div>
+</div>
+
+<section class="alt"><div class="wrap">
+  <h2 class="cond"><span class="en">How it works</span><span class="ms">Cara ia berfungsi</span></h2>
+  <ol class="steps">
+    <li><h3><span class="en">Send one clear photo</span><span class="ms">Hantar satu gambar yang jelas</span></h3><p><span class="en">Yours, your child's, or someone who has agreed. We turn it into a 3D hero design that stays the same in every issue.</span><span class="ms">Gambar anda, anak anda, atau orang yang telah bersetuju. Kami jadikan reka bentuk hero 3D yang kekal sama dalam setiap isu.</span></p></li>
+    <li><h3><span class="en">Name your hero</span><span class="ms">Namakan hero anda</span></h3><p><span class="en">Choose the hero name, suit colour and language: English or Bahasa Melayu.</span><span class="ms">Pilih nama hero, warna sut dan bahasa: Bahasa Melayu atau English.</span></p></li>
+    <li><h3><span class="en">Open a new issue each month</span><span class="ms">Buka isu baharu setiap bulan</span></h3><p><span class="en">A PDF arrives by email in the first week of the month. Read it on any screen or print it at home.</span><span class="ms">PDF dihantar ke emel pada minggu pertama setiap bulan. Baca di mana-mana skrin atau cetak di rumah.</span></p></li>
+  </ol>
+</div></section>
+
+<section><div class="wrap">
+  <h2 class="cond"><span class="en">Season one: Meridian</span><span class="ms">Musim pertama: Meridian</span></h2>
+  <p class="sub"><span class="en">Twelve issues, one story. Every villain you meet leads back to a group called Meridian. The five covers shown are finished samples; the others are revealed month by month.</span><span class="ms">Dua belas isu, satu cerita. Setiap penjahat yang anda temui membawa kepada satu kumpulan bernama Meridian. Lima kulit yang ditunjukkan ialah contoh siap; yang lain didedahkan bulan demi bulan.</span></p>
+  <div class="wall"><article class="iss"><div class="cv"><img src="/l/saga/isu01.jpg" alt="" loading="lazy" width="720" height="956"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 1</span></div><h3><span class="en">The Hero Is Born</span><span class="ms">Kelahiran Hero</span></h3><p><span class="en">One blast of energy at the Science Expo changes your life.</span><span class="ms">Satu letupan tenaga di Ekspo Sains mengubah hidup anda.</span></p></article><article class="iss"><div class="cv locked"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 2</span><b class="cond">02</b></div><h3><span class="en">The Iron Ally</span><span class="ms">Sekutu Besi</span></h3><p><span class="en">The robot you defeated is rebuilt, this time on your side.</span><span class="ms">Robot yang anda tumbangkan dihidupkan semula, kali ini di pihak anda.</span></p></article><article class="iss"><div class="cv"><img src="/l/saga/isu03.jpg" alt="" loading="lazy" width="720" height="956"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 3</span></div><h3><span class="en">The Time Thief</span><span class="ms">Pencuri Masa</span></h3><p><span class="en">Someone is stealing one hour from the whole city, every night.</span><span class="ms">Seseorang mencuri satu jam daripada seluruh kota, setiap malam.</span></p></article><article class="iss"><div class="cv"><img src="/l/saga/isu04.jpg" alt="" loading="lazy" width="720" height="956"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 4</span></div><h3><span class="en">The City Beneath the Sea</span><span class="ms">Kota di Bawah Laut</span></h3><p><span class="en">A distress signal from the sea floor leads you to a lost city.</span><span class="ms">Isyarat kecemasan dari dasar laut membawa anda ke kota yang hilang.</span></p></article><article class="iss"><div class="cv locked"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 5</span><b class="cond">05</b></div><h3><span class="en">Storm Without Clouds</span><span class="ms">Ribut Tanpa Awan</span></h3><p><span class="en">Lightning strikes on a clear day. Your own power starts to fight back.</span><span class="ms">Petir menyambar pada hari cerah. Kuasa anda sendiri mula melawan.</span></p></article><article class="iss"><div class="cv"><img src="/l/saga/isu06.jpg" alt="" loading="lazy" width="720" height="956"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 6</span></div><h3><span class="en">The Twin Mask</span><span class="ms">Topeng Kembar</span></h3><p><span class="en">A false hero appears in the same suit, with other plans.</span><span class="ms">Seorang hero palsu muncul dengan sut yang sama dan niat yang lain.</span></p></article><article class="iss"><div class="cv locked"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 7</span><b class="cond">07</b></div><h3><span class="en">A Day Without Powers</span><span class="ms">Hari Tanpa Kuasa</span></h3><p><span class="en">Your powers vanish for 24 hours. The city still needs you.</span><span class="ms">Kuasa anda hilang selama 24 jam. Kota masih perlukan anda.</span></p></article><article class="iss"><div class="cv"><img src="/l/saga/isu08.jpg" alt="" loading="lazy" width="720" height="956"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 8</span></div><h3><span class="en">Race to the Summit</span><span class="ms">Perlumbaan ke Puncak</span></h3><p><span class="en">Chase the black airship to the top of the highest mountain.</span><span class="ms">Kejar kapal udara hitam sehingga ke puncak gunung tertinggi.</span></p></article><article class="iss"><div class="cv locked"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 9</span><b class="cond">09</b></div><h3><span class="en">The Agency's Secret</span><span class="ms">Rahsia Agensi</span></h3><p><span class="en">The person you trust most has been keeping a file on you.</span><span class="ms">Orang yang paling anda percayai menyimpan satu fail tentang anda.</span></p></article><article class="iss"><div class="cv locked"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 10</span><b class="cond">10</b></div><h3><span class="en">Eclipse</span><span class="ms">Gerhana</span></h3><p><span class="en">When the sun goes dark, every old enemy returns at once.</span><span class="ms">Apabila matahari hilang, semua musuh lama kembali serentak.</span></p></article><article class="iss"><div class="cv locked"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 11</span><b class="cond">11</b></div><h3><span class="en">The Last Ally</span><span class="ms">Sekutu Terakhir</span></h3><p><span class="en">To win, you must ask your very first enemy for help.</span><span class="ms">Untuk menang, anda perlu meminta tolong daripada musuh pertama anda.</span></p></article><article class="iss"><div class="cv locked"><span class="no cond"><span class="en">Month</span><span class="ms">Bulan</span> 12</span><b class="cond">12</b></div><h3><span class="en">Meridian's Light</span><span class="ms">Cahaya Meridian</span></h3><p><span class="en">Season finale: who is behind Meridian, and what they want from you.</span><span class="ms">Penamat musim: siapa di sebalik Meridian, dan apa yang mereka mahu daripada anda.</span></p></article></div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2 class="cond"><span class="en">Inside every issue</span><span class="ms">Dalam setiap isu</span></h2>
+  <p class="sub"><span class="en">Twenty pages, laid out the same way each month.</span><span class="ms">Dua puluh halaman, dengan susunan yang sama setiap bulan.</span></p>
+  <div class="map" role="img" aria-label="20 pages: 1 cover, 1 recap, 16 story pages, 1 hero card, 1 teaser"><i class="c"></i><i class="r"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="h"></i><i class="t"></i></div>
+  <div class="key"><span style="--k:#ffd23a"><span class="en">Cover</span><span class="ms">Kulit</span></span><span style="--k:#fff"><span class="en">The story so far</span><span class="ms">Cerita setakat ini</span></span><span style="--k:#49b6ff"><span class="en">16 story pages</span><span class="ms">16 halaman cerita</span></span><span style="--k:#b98cff"><span class="en">Hero card with this month's new power</span><span class="ms">Kad hero dengan kuasa baharu bulan ini</span></span><span style="--k:#ff8a5c"><span class="en">Next issue preview</span><span class="ms">Pratonton isu seterusnya</span></span></div>
+  <div class="pagesrow">
+    <figure><img src="/l/saga/hal-a.jpg" alt="" loading="lazy" width="900" height="1274"><figcaption><span class="en">A full-page moment</span><span class="ms">Babak satu halaman penuh</span></figcaption></figure>
+    <figure><img src="/l/saga/hal-b.jpg" alt="" loading="lazy" width="900" height="1274"><figcaption><span class="en">Two scenes with dialogue</span><span class="ms">Dua babak dengan dialog</span></figcaption></figure>
+    <figure><img src="/l/saga/hal-c.jpg" alt="" loading="lazy" width="900" height="1274"><figcaption><span class="en">Action with sound effects</span><span class="ms">Aksi dengan kesan bunyi</span></figcaption></figure>
+  </div>
+  <p class="note"><span class="en">Sample pages are from issue 1 in Bahasa Melayu. English issues use the same art with English lettering.</span><span class="ms">Halaman contoh daripada isu 1 dalam Bahasa Melayu. Isu English menggunakan lukisan yang sama dengan teks English.</span></p>
+</div></section>
+
+<section id="pelan"><div class="wrap">
+  <h2 class="cond"><span class="en">Plans</span><span class="ms">Pelan</span></h2>
+  <p class="sub"><span class="en">Both plans deliver the same issues. Subscriptions are not open yet; these are the launch prices.</span><span class="ms">Kedua-dua pelan menerima isu yang sama. Langganan belum dibuka; ini harga pelancaran.</span></p>
+  <div class="plans">
+    <div class="plan"><h3><span class="en">Monthly</span><span class="ms">Bulanan</span></h3><div class="pr cond"><span class="en">US$12.97</span><span class="ms">RM53</span></div><div class="per"><span class="en">per issue, billed monthly</span><span class="ms">setiap isu, dibil bulanan</span> (<span class="en">about RM53</span><span class="ms">kira-kira US$12.97</span>)</div>
+      <ul><li><span class="en">One 20-page issue a month</span><span class="ms">Satu isu 20 halaman sebulan</span></li><li><span class="en">Cancel before your next billing date</span><span class="ms">Batal sebelum tarikh bil seterusnya</span></li><li><span class="en">Keep every issue you received</span><span class="ms">Semua isu yang diterima kekal milik anda</span></li></ul></div>
+    <div class="plan best"><h3><span class="en">Season pass</span><span class="ms">Pas musim</span></h3><div class="pr cond"><span class="en">US$129</span><span class="ms">RM530</span></div><div class="per"><span class="en">for all 12 issues, paid once</span><span class="ms">untuk kesemua 12 isu, bayar sekali</span> (<span class="en">about RM530</span><span class="ms">kira-kira US$129</span>)</div>
+      <ul><li><span class="en">12 issues for the price of 10</span><span class="ms">12 isu pada harga 10</span></li><li><span class="en">Hero poster and phone wallpapers with issue 1</span><span class="ms">Poster hero dan wallpaper telefon bersama isu 1</span></li><li><span class="en">A season-finale certificate with your hero's name</span><span class="ms">Sijil penamat musim dengan nama hero anda</span></li></ul></div>
+  </div>
+  <p class="note"><span class="en">One free correction if the hero's face doesn't look right in issue 1. A second hero (sibling, partner, friend) can be added to the covers and key scenes for a fee.</span><span class="ms">1 pembetulan percuma jika wajah hero kurang mirip dalam isu 1. Hero kedua (adik-beradik, pasangan, kawan) boleh ditambah pada kulit dan babak utama dengan bayaran tambahan.</span></p>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2 class="cond"><span class="en">Questions</span><span class="ms">Soalan</span></h2>
+  <div style="max-width:820px">
+  <details><summary><span class="en">Is this suitable for children?</span><span class="ms">Sesuai untuk kanak-kanak?</span></summary><p><span class="en">Yes. The stories are written for all ages: action without graphic violence, and villains are caught, not hurt. A parent or guardian must place the order for a child.</span><span class="ms">Ya. Cerita ditulis untuk semua umur: aksi tanpa keganasan grafik, dan penjahat ditangkap, bukan dicederakan. Tempahan untuk kanak-kanak mesti dibuat oleh ibu bapa atau penjaga.</span></p></details>
+  <details><summary><span class="en">How is the art made?</span><span class="ms">Bagaimana lukisan dihasilkan?</span></summary><p><span class="en">The pages are illustrated with AI image tools from your photo and our scripts, then checked by a person before sending. The result is a stylised 3D character, not a photograph.</span><span class="ms">Halaman dilukis dengan alat imej AI berdasarkan gambar anda dan skrip kami, kemudian disemak oleh manusia sebelum dihantar. Hasilnya watak 3D bergaya, bukan gambar foto.</span></p></details>
+  <details><summary><span class="en">What happens to my photo?</span><span class="ms">Apa terjadi kepada gambar saya?</span></summary><p><span class="en">It is used only to make your issues. We delete it within 30 days after your subscription ends, or earlier if you ask. We never use it for marketing without your written permission.</span><span class="ms">Ia digunakan hanya untuk menghasilkan isu anda. Kami memadamnya dalam masa 30 hari selepas langganan tamat, atau lebih awal jika diminta. Kami tidak menggunakannya untuk pemasaran tanpa izin bertulis anda.</span></p></details>
+  <details><summary><span class="en">Can I join after the season has started?</span><span class="ms">Boleh sertai selepas musim bermula?</span></summary><p><span class="en">Yes. Everyone starts at issue 1, whenever they join, so you never miss the beginning.</span><span class="ms">Boleh. Semua orang bermula dengan isu 1, tidak kira bila mereka menyertai, jadi anda tidak terlepas permulaan cerita.</span></p></details>
+  <details><summary><span class="en">Can I get a printed copy?</span><span class="ms">Ada salinan bercetak?</span></summary><p><span class="en">Not from us. Every issue is a print-ready A4 PDF for personal use, so you can print it at home or at a local print shop.</span><span class="ms">Tidak daripada kami. Setiap isu ialah PDF A4 sedia cetak untuk kegunaan peribadi, jadi anda boleh mencetaknya di rumah atau di kedai cetak.</span></p></details>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p><span class="en">Saga Hero is made by BuanaHub, Malaysia. Illustrated with the help of AI and checked by a person.</span><span class="ms">Saga Hero dihasilkan oleh BuanaHub, Malaysia. Dilukis dengan bantuan AI dan disemak oleh manusia.</span></p>
+  <p><span class="en">All characters, stories and suit designs are original. The face on this page belongs to a made-up sample person.</span><span class="ms">Semua watak, cerita dan reka bentuk sut adalah asal. Wajah pada halaman ini milik orang contoh rekaan.</span></p>
+  <p><a href="/"><span class="en">Back to the BuanaHub catalogue</span><span class="ms">Kembali ke katalog BuanaHub</span></a></p>
+</div></footer>
+
+</body>
+</html>
